@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Patient Record</string>
+
+    <!-- Splash Screen -->
+    <string name="app_title">Patient Record</string>
+    <string name="app_subtitle">Secure Homeopathy Management</string>
+    <string name="version">v1.0</string>
+
+    <!-- Lock Screen -->
+    <string name="welcome_back">Welcome Back,\n%s</string>
+    <string name="enter_pin">Enter PIN to unlock</string>
+    <string name="forgot_pin">Forgot PIN?</string>
+
+    <!-- Accessibility -->
+    <string name="cd_app_logo">App Logo</string>
+    <string name="cd_user_avatar">User Avatar</string>
+    <string name="cd_fingerprint">Fingerprint authentication</string>
+    <string name="cd_backspace">Delete last digit</string>
+    <string name="cd_signal">Signal strength</string>
+    <string name="cd_wifi">WiFi connection</string>
+    <string name="cd_battery">Battery level</string>
+
+    <!-- Numbers -->
+    <string name="number_0">0</string>
+    <string name="number_1">1</string>
+    <string name="number_2">2</string>
+    <string name="number_3">3</string>
+    <string name="number_4">4</string>
+    <string name="number_5">5</string>
+    <string name="number_6">6</string>
+    <string name="number_7">7</string>
+    <string name="number_8">8</string>
+    <string name="number_9">9</string>
+</resources>
