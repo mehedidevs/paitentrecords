@@ -10,22 +10,12 @@ val Purple40 = Color(0xFF6650a4)
 val PurpleGrey40 = Color(0xFF625b71)
 val Pink40 = Color(0xFF7D5260)
 
-// Light theme colors
-val PrimaryGreen = Color(0xFF2BEE5B)
-val PrimaryGreenHover = Color(0xFF25D652)
-val PrimaryGreenActive = Color(0xFF20BD46)
-val BackgroundLight = Color(0xFFF6F8F6)
-val CardLight = Color(0xFFFFFFFF)
-val TextMainLight = Color(0xFF111813)
-val TextSubLight = Color(0xFF61896B)
-val BorderLight = Color(0xFFDBE6DE)
 
 // Dark theme colors
-val BackgroundDark = Color(0xFF102215)
 val CardDark = Color(0xFF1C3024)
 val TextMainDark = Color(0xFFFFFFFF)
 val TextSubDark = Color(0xFFA3C2AB)
-val BorderDark = Color(0xFF2C4030)
+
 val InputDark = Color(0xFF1A2C20)
 
 // Avatar colors
@@ -38,5 +28,47 @@ val AvatarPurpleBg = Color(0xFFF3E8FF)
 val AvatarPurpleBgDark = Color(0xFF581C87)
 
 val AvatarOrange = Color(0xFFF97316)
+
 val AvatarOrangeBg = Color(0xFFFFEDD5)
 val AvatarOrangeBgDark = Color(0xFF9A3412)
+
+// Primary Colors
+val PrimaryGreen = Color(0xFF2BEE5B)
+val PrimaryGreenDark = Color(0xFF25D650)
+val PrimaryGreenLight = Color(0xFF4EF578)
+
+// Background Colors
+val BackgroundLight = Color(0xFFF5FBF6)
+val BackgroundWhite = Color(0xFFFFFFFF)
+val BackgroundDark = Color(0xFF121212)
+
+
+// Surface Colors
+val SurfaceVariantLight = Color(0xFFF8F8F8)
+val SurfaceVariantDark = Color(0xFF2C2C2C)
+
+// Text Colors
+val TextPrimary = Color(0xFF1A1A1A)
+val TextSecondary = Color(0xFF6B7280)
+val TextTertiary = Color(0xFF9CA3AF)
+val TextPrimaryDark = Color(0xFFFFFFFF)
+val TextSecondaryDark = Color(0xFFB0B0B0)
+
+// Border Colors
+val BorderLight = Color(0xFFE5E7EB)
+val BorderMedium = Color(0xFFD1D5DB)
+val BorderDark = Color(0xFF3A3A3A)
+
+// Status Colors
+val ErrorRed = Color(0xFFEF4444)
+val ErrorRedLight = Color(0xFFFEE2E2)
+val SuccessGreen = Color(0xFF22C55E)
+val WarningYellow = Color(0xFFF59E0B)
+
+// Icon Colors
+val IconDefault = Color(0xFF6B7280)
+val IconActive = Color(0xFF2BEE5B)
+
+// Dashed Border Color
+val DashedBorderGreen = Color(0xFF2BEE5B).copy(alpha = 0.5f)
+val PhotoPickerBackground = Color(0xFFE8F9EC)

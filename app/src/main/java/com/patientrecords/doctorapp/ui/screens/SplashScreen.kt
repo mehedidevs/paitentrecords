@@ -36,7 +36,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.patientrecords.doctorapp.ui.components.StatusBar
-import com.patientrecords.doctorapp.ui.theme.PatientRecordTheme
+import com.patientrecords.doctorapp.ui.theme.HealthcarePatientTheme
 
 @Composable
 fun SplashScreen(
@@ -155,7 +155,7 @@ private fun AnimatedLogo() {
 @Preview(name = "Splash Screen - Light", showBackground = true)
 @Composable
 private fun SplashScreenPreviewLight() {
-    PatientRecordTheme(darkTheme = false) {
+    HealthcarePatientTheme(darkTheme = false) {
         SplashScreen()
     }
 }
@@ -163,7 +163,7 @@ private fun SplashScreenPreviewLight() {
 @Preview(name = "Splash Screen - Dark", showBackground = true)
 @Composable
 private fun SplashScreenPreviewDark() {
-    PatientRecordTheme(darkTheme = true) {
+    HealthcarePatientTheme(darkTheme = true) {
         SplashScreen()
     }
 }

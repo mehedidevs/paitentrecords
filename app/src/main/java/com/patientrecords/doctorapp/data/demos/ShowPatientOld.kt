@@ -5,7 +5,7 @@ import android.net.Uri
 /**
  * Data class representing a patient in the system
  */
-data class Patient(
+data class ShowPatientOld(
     val id: String = "",
     val fullName: String = "",
     val mobileNumber: String = "",
@@ -27,7 +27,7 @@ enum class Gender {
 /**
  * Get initials from full name for avatar display
  */
-fun Patient.getInitials(): String {
+fun ShowPatientOld.getInitials(): String {
     return fullName
         .split(" ")
         .mapNotNull { it.firstOrNull()?.toString() }
@@ -41,7 +41,7 @@ fun Patient.getInitials(): String {
  */
 object SamplePatients {
     val patients = listOf(
-        Patient(
+        ShowPatientOld(
             id = "1",
             fullName = "Ramesh Gupta",
             mobileNumber = "+91 98765 43210",
@@ -49,7 +49,7 @@ object SamplePatients {
             gender = Gender.MALE,
             consultationDate = "Today"
         ),
-        Patient(
+        ShowPatientOld(
             id = "2",
             fullName = "Anita Desai",
             mobileNumber = "+91 91234 56789",
@@ -57,7 +57,7 @@ object SamplePatients {
             gender = Gender.FEMALE,
             consultationDate = "Yesterday"
         ),
-        Patient(
+        ShowPatientOld(
             id = "3",
             fullName = "Rahul Kumar",
             mobileNumber = "+91 88888 88888",
@@ -65,7 +65,7 @@ object SamplePatients {
             gender = Gender.MALE,
             consultationDate = "12 Oct"
         ),
-        Patient(
+        ShowPatientOld(
             id = "4",
             fullName = "Sneha Patel",
             mobileNumber = "+91 77766 55544",

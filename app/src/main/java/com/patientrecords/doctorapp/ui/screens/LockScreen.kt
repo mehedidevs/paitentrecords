@@ -38,7 +38,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.patientrecords.doctorapp.ui.components.StatusBar
-import com.patientrecords.doctorapp.ui.theme.PatientRecordTheme
+import com.patientrecords.doctorapp.ui.theme.HealthcarePatientTheme
 
 @Composable
 fun LockScreen(
@@ -339,7 +339,7 @@ private fun KeypadButton(
 @Preview(name = "Lock Screen - Light", showBackground = true)
 @Composable
 private fun LockScreenPreviewLight() {
-    PatientRecordTheme(darkTheme = false) {
+    HealthcarePatientTheme(darkTheme = false) {
         LockScreen()
     }
 }
@@ -347,7 +347,7 @@ private fun LockScreenPreviewLight() {
 @Preview(name = "Lock Screen - Dark", showBackground = true)
 @Composable
 private fun LockScreenPreviewDark() {
-    PatientRecordTheme(darkTheme = true) {
+    HealthcarePatientTheme(darkTheme = true) {
         LockScreen()
     }
 }
@@ -355,7 +355,7 @@ private fun LockScreenPreviewDark() {
 @Preview(name = "Lock Screen - With PIN", showBackground = true)
 @Composable
 private fun LockScreenPreviewWithPin() {
-    PatientRecordTheme(darkTheme = false) {
+    HealthcarePatientTheme(darkTheme = false) {
         LockScreen()
     }
 }

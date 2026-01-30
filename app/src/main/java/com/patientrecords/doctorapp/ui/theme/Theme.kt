@@ -69,7 +69,7 @@ private val DarkColorScheme = darkColorScheme(
 )
 
 @Composable
-fun PatientRecordTheme(
+fun HealthcarePatientTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     content: @Composable () -> Unit
 ) {

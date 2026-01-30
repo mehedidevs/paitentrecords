@@ -72,6 +72,7 @@ dependencies {
     implementation(platform(libs.supabase.bom))
     implementation(libs.supabase.auth)
     implementation(libs.supabase.postgrest)
+    implementation(libs.supabase.storage)
     implementation(libs.ktor.client.android)
 
     // Hilt
@@ -82,4 +83,11 @@ dependencies {
     // Coroutines
     implementation(libs.coroutines.core)
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.9.0")
+
+    implementation(libs.koin.core)
+    implementation(libs.koin.android)
+
+    // Compose only
+    implementation(libs.koin.compose)
+
 }

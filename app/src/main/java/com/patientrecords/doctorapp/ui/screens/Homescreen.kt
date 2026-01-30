@@ -1,6 +1,7 @@
 package com.patientrecords.doctorapp.ui.screens
 
 
+import android.R.attr.textColor
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -20,72 +21,106 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
-import com.patientrecords.doctorapp.data.demos.Patient
-import com.patientrecords.doctorapp.data.demos.SamplePatients
+import com.patientrecords.doctorapp.data.demos.ShowPatientOld
 import com.patientrecords.doctorapp.data.demos.getInitials
+import com.patientrecords.doctorapp.ui.screens.addpaitents.components.Patient
 import com.patientrecords.doctorapp.ui.theme.AvatarBlue
 import com.patientrecords.doctorapp.ui.theme.AvatarBlueBg
 import com.patientrecords.doctorapp.ui.theme.AvatarOrange
 import com.patientrecords.doctorapp.ui.theme.AvatarOrangeBg
 import com.patientrecords.doctorapp.ui.theme.AvatarPurple
 import com.patientrecords.doctorapp.ui.theme.AvatarPurpleBg
-import com.patientrecords.doctorapp.ui.theme.PatientRecordTheme
-
+import com.patientrecords.doctorapp.ui.theme.HealthcarePatientTheme
+import com.patientrecords.doctorapp.ui.screens.addpaitents.components.GetPatientResult
+import com.patientrecords.doctorapp.ui.screens.patientlist.PatientViewModel
+import com.patientrecords.doctorapp.ui.theme.Primary
+import com.patientrecords.doctorapp.ui.theme.TextPrimary
+import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun HomeScreen(
+    viewModel: PatientViewModel = koinViewModel(),
     onAddPatientClick: () -> Unit = {},
     onPatientClick: (Patient) -> Unit = {},
     onViewAllClick: () -> Unit = {}
 ) {
-    var searchQuery by remember { mutableStateOf("") }
-    val patients = remember { SamplePatients.patients }
+    val state by viewModel.uiState.collectAsState()
 
     Scaffold(
-        topBar = {
-            HomeTopBar()
-        },
-        bottomBar = {
-            BottomNavigationBar(selectedItem = 0)
-        },
+        topBar = { HomeTopBar() },
+        bottomBar = { BottomNavigationBar(selectedItem = 0) },
         containerColor = MaterialTheme.colorScheme.background
-    ) { paddingValues ->
-        LazyColumn(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(paddingValues),
-            contentPadding = PaddingValues(bottom = 16.dp)
-        ) {
-            item {
-                SearchSection(
-                    searchQuery = searchQuery,
-                    onSearchQueryChange = { searchQuery = it }
-                )
+    ) { padding ->
+
+        when (state) {
+
+            is GetPatientResult.Loading -> {
+                Box(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(padding),
+                    contentAlignment = Alignment.Center
+                ) {
+                    CircularProgressIndicator()
+                }
             }
 
-            item {
-                AddPatientButton(onClick = onAddPatientClick)
+            is GetPatientResult.Error -> {
+                Box(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(padding),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Text(
+                        text = (state as GetPatientResult.Error).message,
+                        color = MaterialTheme.colorScheme.error
+                    )
+                }
             }
 
-            item {
-                RecentConsultationsHeader(onViewAllClick = onViewAllClick)
-            }
+            is GetPatientResult.Success -> {
+                val patients = (state as GetPatientResult.Success).patients
 
-            items(patients) { patient ->
-                PatientListItem(
-                    patient = patient,
-                    onClick = { onPatientClick(patient) }
-                )
+                LazyColumn(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(padding),
+                    contentPadding = PaddingValues(bottom = 16.dp)
+                ) {
+
+                    item {
+                        SearchSection(
+                            searchQuery = "",
+                            onSearchQueryChange = {}
+                        )
+                    }
+
+                    item {
+                        AddPatientButton(onClick = onAddPatientClick)
+                    }
+
+                    item {
+                        RecentConsultationsHeader(onViewAllClick)
+                    }
+
+                    items(patients) { patient ->
+                        PatientListItem(
+                            patient = patient,
+                            onClick = { onPatientClick(patient) }
+                        )
+                    }
+                }
             }
         }
     }
 }
+
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -292,14 +327,14 @@ private fun PatientListItem(
             }
 
             Surface(
-                color = if (patient.consultationDate == "Today")
+                color = if (patient.createdAt == "Today")
                     MaterialTheme.colorScheme.surfaceVariant
                 else
                     Color.Transparent,
                 shape = RoundedCornerShape(6.dp)
             ) {
                 Text(
-                    text = patient.consultationDate,
+                    text = "${patient.createdAt}",
                     style = MaterialTheme.typography.labelMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                     modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp)
@@ -311,34 +346,31 @@ private fun PatientListItem(
 
 @Composable
 private fun PatientAvatar(patient: Patient) {
-    val (backgroundColor, textColor) = when (patient.getInitials()) {
-        "RG" -> AvatarBlueBg to AvatarBlue
-        "RK" -> AvatarPurpleBg to AvatarPurple
-        "SP" -> AvatarOrangeBg to AvatarOrange
-        else -> AvatarBlueBg to AvatarBlue
-    }
+
 
     Box(
         modifier = Modifier
             .size(48.dp)
             .clip(CircleShape)
-            .background(backgroundColor),
+            .background(Primary),
         contentAlignment = Alignment.Center
     ) {
-        if (patient.photoUri != null) {
+        if (patient.photoUrl != null) {
             AsyncImage(
-                model = patient.photoUri,
+                model = patient.photoUrl,
                 contentDescription = "Patient photo",
                 modifier = Modifier.fillMaxSize(),
                 contentScale = ContentScale.Crop
             )
         } else {
             Text(
-                text = patient.getInitials(),
-                style = MaterialTheme.typography.titleLarge,
-                fontWeight = FontWeight.Bold,
-                color = textColor
+                text = "AA",
+                style = MaterialTheme.typography.titleLarge.copy(
+                    fontWeight = FontWeight.Bold,
+                    color = TextPrimary
+                )
             )
+
         }
     }
 }
@@ -442,7 +474,7 @@ private fun BottomNavigationBar(selectedItem: Int) {
 @Preview(name = "Home Screen - Light", showBackground = true)
 @Composable
 private fun HomeScreenPreviewLight() {
-    PatientRecordTheme(darkTheme = false) {
+    HealthcarePatientTheme(darkTheme = false) {
         HomeScreen()
     }
 }
@@ -450,7 +482,7 @@ private fun HomeScreenPreviewLight() {
 @Preview(name = "Home Screen - Dark", showBackground = true)
 @Composable
 private fun HomeScreenPreviewDark() {
-    PatientRecordTheme(darkTheme = true) {
+    HealthcarePatientTheme(darkTheme = true) {
         HomeScreen()
     }
 }

@@ -32,4 +32,59 @@
     <string name="number_7">7</string>
     <string name="number_8">8</string>
     <string name="number_9">9</string>
+
+    <!-- Add Patient Screen -->
+    <string name="add_new_patient">Add New Patient</string>
+    <string name="add_photo">Add Photo</string>
+    <string name="change_photo">Change Photo</string>
+    <string name="full_name">Full name</string>
+    <string name="full_name_placeholder">e.g. John Doe</string>
+    <string name="mobile_number">Mobile number</string>
+    <string name="mobile_number_placeholder">10 digit number</string>
+    <string name="age">Age</string>
+    <string name="gender">Gender</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
+    <string name="address">Address</string>
+    <string name="address_placeholder">Street, City...</string>
+    <string name="optional">Optional</string>
+    <string name="required">*</string>
+    <string name="save_patient">Save Patient</string>
+
+    <!-- Photo Picker -->
+    <string name="select_photo">Select Photo</string>
+    <string name="camera">Camera</string>
+    <string name="gallery">Gallery</string>
+    <string name="remove_photo">Remove photo</string>
+
+    <!-- Validation Messages -->
+    <string name="error_name_required">Full name is required</string>
+    <string name="error_name_min_length">Name must be at least 2 characters</string>
+    <string name="error_name_max_length">Name cannot exceed 100 characters</string>
+    <string name="error_name_invalid">Name can only contain letters and spaces</string>
+    <string name="error_mobile_required">Mobile number is required</string>
+    <string name="error_mobile_length">Mobile number must be 10 digits</string>
+    <string name="error_mobile_invalid">Invalid mobile number format</string>
+    <string name="error_age_required">Age is required</string>
+    <string name="error_age_invalid">Please enter a valid age</string>
+    <string name="error_age_min">Age must be at least 1</string>
+    <string name="error_gender_required">Please select a gender</string>
+    <string name="error_address_max_length">Address cannot exceed 500 characters</string>
+
+    <!-- Success/Error Messages -->
+    <string name="success_patient_added">Patient added successfully!</string>
+    <string name="error_form_fix">Please fix the errors in the form</string>
+    <string name="error_photo_upload">Failed to upload photo</string>
+    <string name="error_generic">Something went wrong. Please try again.</string>
+
+    <!-- Permissions -->
+    <string name="permission_camera_rationale">Camera permission is needed to take photos</string>
+    <string name="permission_storage_rationale">Storage permission is needed to select photos</string>
+
+    <!-- Content Descriptions -->
+    <string name="cd_back">Go back</string>
+    <string name="cd_add_photo">Add patient photo</string>
+    <string name="cd_selected_photo">Selected patient photo</string>
+    <string name="cd_phone_icon">Phone icon</string>
+
 </resources>

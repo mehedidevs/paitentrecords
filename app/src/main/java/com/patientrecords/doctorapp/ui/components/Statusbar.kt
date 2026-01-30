@@ -19,7 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.patientrecords.doctorapp.ui.theme.PatientRecordTheme
+import com.patientrecords.doctorapp.ui.theme.HealthcarePatientTheme
 
 
 @Composable
@@ -72,7 +72,7 @@ fun StatusBar(
 @Preview(name = "Status Bar - Light", showBackground = true)
 @Composable
 private fun StatusBarPreviewLight() {
-    PatientRecordTheme(darkTheme = false) {
+    HealthcarePatientTheme(darkTheme = false) {
         StatusBar(time = "9:41")
     }
 }
@@ -80,7 +80,7 @@ private fun StatusBarPreviewLight() {
 @Preview(name = "Status Bar - Dark", showBackground = true)
 @Composable
 private fun StatusBarPreviewDark() {
-    PatientRecordTheme(darkTheme = true) {
+    HealthcarePatientTheme(darkTheme = true) {
         StatusBar(time = "9:41")
     }
 }

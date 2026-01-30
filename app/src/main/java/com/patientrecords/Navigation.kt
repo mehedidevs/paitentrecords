@@ -6,7 +6,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.patientrecords.doctorapp.ui.screens.AddPatientScreen
+import com.patientrecords.doctorapp.ui.screens.addpaitents.AddPatientScreen
 import com.patientrecords.doctorapp.ui.screens.HomeScreen
 
 /**
@@ -46,12 +46,7 @@ fun DoctorAppNavigation(
 
         composable(Screen.AddPatient.route) {
             AddPatientScreen(
-                onBackClick = {
-                    navController.popBackStack()
-                },
-                onSaveClick = { formState ->
-                    // Save patient data
-                    // TODO: Implement save logic (ViewModel/Repository)
+                onNavigateBack = {
                     navController.popBackStack()
                 }
             )
