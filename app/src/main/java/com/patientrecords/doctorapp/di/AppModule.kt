@@ -7,6 +7,7 @@ import com.patientrecords.doctorapp.ui.screens.addpaitents.validation.PatientFor
 import com.patientrecords.doctorapp.ui.screens.addpaitents.AddPatientViewModel
 import com.patientrecords.doctorapp.ui.screens.addpaitents.components.GetPatientUseCase
 import com.patientrecords.doctorapp.ui.screens.patientlist.PatientViewModel
+import com.patientrecords.doctorapp.ui.screens.patientsearch.SearchPatientViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
@@ -24,10 +25,12 @@ val patientModule = module {
     // ============== Use Cases ==============
     single { AddPatientUseCase(get(), get()) }
     single { GetPatientUseCase(get()) }
+    single { GetPatientUseCase(get()) }
 
     // ============== ViewModels ==============
     viewModel { AddPatientViewModel(get(), get()) }
     viewModel { PatientViewModel(get()) }
+    viewModel { SearchPatientViewModel(get()) }
 }
 
 /**

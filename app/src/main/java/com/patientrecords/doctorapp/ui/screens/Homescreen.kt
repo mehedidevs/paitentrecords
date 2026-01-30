@@ -1,7 +1,6 @@
 package com.patientrecords.doctorapp.ui.screens
 
 
-import android.R.attr.textColor
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -26,20 +25,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
-import com.patientrecords.doctorapp.data.demos.ShowPatientOld
-import com.patientrecords.doctorapp.data.demos.getInitials
+import com.patientrecords.doctorapp.ui.components.PatientAvatar
 import com.patientrecords.doctorapp.ui.screens.addpaitents.components.Patient
-import com.patientrecords.doctorapp.ui.theme.AvatarBlue
-import com.patientrecords.doctorapp.ui.theme.AvatarBlueBg
-import com.patientrecords.doctorapp.ui.theme.AvatarOrange
-import com.patientrecords.doctorapp.ui.theme.AvatarOrangeBg
-import com.patientrecords.doctorapp.ui.theme.AvatarPurple
-import com.patientrecords.doctorapp.ui.theme.AvatarPurpleBg
 import com.patientrecords.doctorapp.ui.theme.HealthcarePatientTheme
 import com.patientrecords.doctorapp.ui.screens.addpaitents.components.GetPatientResult
 import com.patientrecords.doctorapp.ui.screens.patientlist.PatientViewModel
-import com.patientrecords.doctorapp.ui.theme.Primary
-import com.patientrecords.doctorapp.ui.theme.TextPrimary
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
@@ -47,7 +37,8 @@ fun HomeScreen(
     viewModel: PatientViewModel = koinViewModel(),
     onAddPatientClick: () -> Unit = {},
     onPatientClick: (Patient) -> Unit = {},
-    onViewAllClick: () -> Unit = {}
+    onViewAllClick: () -> Unit = {},
+    onSearchClick: () -> Unit = {}
 ) {
     val state by viewModel.uiState.collectAsState()
 
@@ -96,8 +87,7 @@ fun HomeScreen(
 
                     item {
                         SearchSection(
-                            searchQuery = "",
-                            onSearchQueryChange = {}
+                            onClick = onSearchClick
                         )
                     }
 
@@ -171,9 +161,8 @@ private fun HomeTopBar() {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun SearchSection(
-    searchQuery: String,
-    onSearchQueryChange: (String) -> Unit
+fun SearchSection(
+    onClick: () -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -181,15 +170,18 @@ private fun SearchSection(
             .padding(horizontal = 24.dp)
             .padding(vertical = 16.dp)
     ) {
+
         OutlinedTextField(
-            value = searchQuery,
-            onValueChange = onSearchQueryChange,
+            value = "",
+            onValueChange = {},
+            enabled = false, // 🔑 important
             modifier = Modifier
                 .fillMaxWidth()
-                .height(56.dp),
+                .height(56.dp)
+                .clickable { onClick() },
             placeholder = {
                 Text(
-                    "Search patient by mobile #",
+                    text = "Search patient by name or mobile",
                     style = MaterialTheme.typography.bodyLarge,
                     color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.7f)
                 )
@@ -197,21 +189,21 @@ private fun SearchSection(
             leadingIcon = {
                 Icon(
                     imageVector = Icons.Default.Search,
-                    contentDescription = "Search",
+                    contentDescription = null,
                     tint = MaterialTheme.colorScheme.onSurfaceVariant
                 )
             },
             shape = RoundedCornerShape(12.dp),
             colors = OutlinedTextFieldDefaults.colors(
-                focusedBorderColor = MaterialTheme.colorScheme.primary,
-                unfocusedBorderColor = MaterialTheme.colorScheme.outline.copy(alpha = 0.3f),
-                focusedContainerColor = MaterialTheme.colorScheme.surface,
-                unfocusedContainerColor = MaterialTheme.colorScheme.surface
+                disabledBorderColor = MaterialTheme.colorScheme.outline.copy(alpha = 0.3f),
+                disabledContainerColor = MaterialTheme.colorScheme.surface,
+                disabledTextColor = MaterialTheme.colorScheme.onSurfaceVariant
             ),
             singleLine = true
         )
     }
 }
+
 
 @Composable
 private fun AddPatientButton(onClick: () -> Unit) {
@@ -344,36 +336,6 @@ private fun PatientListItem(
     }
 }
 
-@Composable
-private fun PatientAvatar(patient: Patient) {
-
-
-    Box(
-        modifier = Modifier
-            .size(48.dp)
-            .clip(CircleShape)
-            .background(Primary),
-        contentAlignment = Alignment.Center
-    ) {
-        if (patient.photoUrl != null) {
-            AsyncImage(
-                model = patient.photoUrl,
-                contentDescription = "Patient photo",
-                modifier = Modifier.fillMaxSize(),
-                contentScale = ContentScale.Crop
-            )
-        } else {
-            Text(
-                text = "AA",
-                style = MaterialTheme.typography.titleLarge.copy(
-                    fontWeight = FontWeight.Bold,
-                    color = TextPrimary
-                )
-            )
-
-        }
-    }
-}
 
 @Composable
 private fun BottomNavigationBar(selectedItem: Int) {

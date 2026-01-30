@@ -90,4 +90,7 @@ dependencies {
     // Compose only
     implementation(libs.koin.compose)
 
+    //Coil
+    implementation(libs.coil.compose)
+
 }

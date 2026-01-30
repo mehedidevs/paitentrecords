@@ -8,6 +8,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.patientrecords.doctorapp.ui.screens.addpaitents.AddPatientScreen
 import com.patientrecords.doctorapp.ui.screens.HomeScreen
+import com.patientrecords.doctorapp.ui.screens.patientsearch.SearchPatientScreen
 
 /**
  * Navigation routes for the app
@@ -15,6 +16,7 @@ import com.patientrecords.doctorapp.ui.screens.HomeScreen
 sealed class Screen(val route: String) {
     object Home : Screen("home")
     object AddPatient : Screen("add_patient")
+    object SearchPatientScreen : Screen("search_patient_screen")
 }
 
 /**
@@ -40,6 +42,9 @@ fun DoctorAppNavigation(
                 onViewAllClick = {
                     // Navigate to all patients list
                     // TODO: Implement all patients screen
+                },
+                onSearchClick = {
+                    navController.navigate(Screen.SearchPatientScreen.route)
                 }
             )
         }
@@ -51,5 +56,14 @@ fun DoctorAppNavigation(
                 }
             )
         }
+        composable(Screen.SearchPatientScreen.route) {
+            SearchPatientScreen(
+                onPatientClick = {},
+                onBack = {
+                    navController.popBackStack()
+                }
+            )
+        }
     }
 }
+

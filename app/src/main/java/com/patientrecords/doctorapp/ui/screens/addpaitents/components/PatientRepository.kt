@@ -2,6 +2,7 @@ package com.patientrecords.doctorapp.ui.screens.addpaitents.components
 
 import android.content.Context
 import android.net.Uri
+import android.service.autofill.Validators.or
 import com.patientrecords.doctorapp.addmedicine.MedicineDto
 import com.patientrecords.doctorapp.database.SupabaseProvider
 import com.patientrecords.doctorapp.ui.screens.addmedicine.MedicineData
@@ -22,6 +23,7 @@ interface PatientRepository {
     suspend fun deletePhoto(photoUrl: String): Result<Unit>
 
     suspend fun getAllPatients(): Result<List<Patient>>
+    suspend fun searchPatients(query: String): Result<List<Patient>>
 }
 
 /**
@@ -40,34 +42,34 @@ class PatientRepositoryImpl : PatientRepository {
      * @param context Android context for content resolver
      * @return Result containing the public URL of uploaded photo
      */
-    override suspend fun uploadPhoto(uri: Uri, context: Context): Result<String> {
-        return withContext(Dispatchers.IO) {
-            try {
-                // Generate unique file name
-                val fileName = SupabaseHelper.generatePhotoFileName(UUID.randomUUID().toString())
 
-                // Read image bytes from URI
-                val inputStream = context.contentResolver.openInputStream(uri)
-                    ?: return@withContext Result.failure(Exception("Failed to open image"))
+    override suspend fun uploadPhoto(
+        uri: Uri,
+        context: Context
+    ): Result<String> = withContext(Dispatchers.IO) {
 
-                val bytes = inputStream.readBytes()
-                inputStream.close()
+        runCatching {
 
-                // Upload to Supabase Storage
-                val bucket = storage.from(SupabaseConfig.PATIENT_PHOTOS_BUCKET)
-                bucket.upload(path = fileName, data = bytes) {
-                    upsert = false
-                }
+            val fileName =
+                SupabaseHelper.generatePhotoFileName(UUID.randomUUID().toString())
 
-                // Get public URL
-                val publicUrl = SupabaseHelper.getPhotoPublicUrl(fileName)
+            val bytes = context.contentResolver
+                .openInputStream(uri)
+                ?.readBytes()
+                ?: throw Exception("Unable to read image")
 
-                Result.success(publicUrl)
-            } catch (e: Exception) {
-                Result.failure(e)
+            val bucket = storage.from(SupabaseConfig.PATIENT_PHOTOS_BUCKET)
+
+            bucket.upload(path = fileName, data = bytes) {
+                upsert = false
             }
+
+
+            // ✅ THIS is the correct URL
+            bucket.publicUrl(fileName)
         }
     }
+
 
     /**
      * Create a new patient in the database
@@ -146,6 +148,24 @@ class PatientRepositoryImpl : PatientRepository {
             }
         }
     }
+
+    override suspend fun searchPatients(
+        query: String
+    ): Result<List<Patient>> =
+        runCatching {
+
+            patientTable
+                .select {
+                    filter {
+                        or {
+                            Patient::fullName ilike "%$query%"
+                            Patient::mobileNumber ilike "%$query%"
+                        }
+                    }
+                }
+                .decodeList<Patient>()
+        }
+
 
     suspend fun updateAndFetch(
         id: String,
