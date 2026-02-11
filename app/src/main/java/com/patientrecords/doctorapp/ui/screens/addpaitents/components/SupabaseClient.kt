@@ -3,6 +3,7 @@ package com.patientrecords.doctorapp.ui.screens.addpaitents.components
 import io.github.jan.supabase.SupabaseClient
 import io.github.jan.supabase.createSupabaseClient
 import io.github.jan.supabase.postgrest.Postgrest
+import io.github.jan.supabase.realtime.Realtime
 import io.github.jan.supabase.storage.Storage
 
 /**
@@ -30,6 +31,7 @@ object SupabaseConfig {
         ) {
             install(Postgrest)
             install(Storage)
+            install(Realtime)
         }
     }
 }

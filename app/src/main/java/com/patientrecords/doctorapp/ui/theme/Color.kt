@@ -32,15 +32,8 @@ val AvatarOrange = Color(0xFFF97316)
 val AvatarOrangeBg = Color(0xFFFFEDD5)
 val AvatarOrangeBgDark = Color(0xFF9A3412)
 
-// Primary Colors
-val PrimaryGreen = Color(0xFF2BEE5B)
-val PrimaryGreenDark = Color(0xFF25D650)
-val PrimaryGreenLight = Color(0xFF4EF578)
 
 // Background Colors
-val BackgroundLight = Color(0xFFF5FBF6)
-val BackgroundWhite = Color(0xFFFFFFFF)
-val BackgroundDark = Color(0xFF121212)
 
 
 // Surface Colors
@@ -51,8 +44,7 @@ val SurfaceVariantDark = Color(0xFF2C2C2C)
 val TextPrimary = Color(0xFF1A1A1A)
 val TextSecondary = Color(0xFF6B7280)
 val TextTertiary = Color(0xFF9CA3AF)
-val TextPrimaryDark = Color(0xFFFFFFFF)
-val TextSecondaryDark = Color(0xFFB0B0B0)
+
 
 // Border Colors
 val BorderLight = Color(0xFFE5E7EB)
@@ -72,3 +64,83 @@ val IconActive = Color(0xFF2BEE5B)
 // Dashed Border Color
 val DashedBorderGreen = Color(0xFF2BEE5B).copy(alpha = 0.5f)
 val PhotoPickerBackground = Color(0xFFE8F9EC)
+
+
+val PrimaryGreen = Color(0xFF2BEE5B)
+val PrimaryGreenDark = Color(0xFF22C94D)
+val PrimaryGreenLight = Color(0xFF5FF285)
+val PrimaryGreenContainer = Color(0xFFE8FDF0)
+val PrimaryGreenContainerDark = Color(0xFF1A3D26)
+
+// Secondary Colors
+val SecondaryGreen = Color(0xFF00D47E)
+val SecondaryGreenDark = Color(0xFF00B36A)
+
+// Background Colors
+val BackgroundLight = Color(0xFFFAFAFA)
+val BackgroundDark = Color(0xFF121212)
+
+// Card Colors
+val CardBackgroundLight = Color(0xFFF5F9F6)
+val CardBackgroundDark = Color(0xFF252525)
+val CardBorderLight = Color(0xFFE8ECE9)
+val CardBorderDark = Color(0xFF3A3A3A)
+
+// Text Colors
+val TextPrimaryLight = Color(0xFF1A1A1A)
+val TextPrimaryDark = Color(0xFFFFFFFF)
+val TextSecondaryLight = Color(0xFF666666)
+val TextSecondaryDark = Color(0xFFB3B3B3)
+val TextTertiaryLight = Color(0xFF999999)
+val TextTertiaryDark = Color(0xFF808080)
+val TextPlaceholderLight = Color(0xFFBDBDBD)
+val TextPlaceholderDark = Color(0xFF5C5C5C)
+
+// Input Field Colors
+val InputBackgroundLight = Color(0xFFF5F7F6)
+val InputBackgroundDark = Color(0xFF2A2A2A)
+val InputBorderLight = Color(0xFFE0E4E2)
+val InputBorderDark = Color(0xFF404040)
+val InputBorderFocusedLight = Color(0xFF2BEE5B)
+val InputBorderFocusedDark = Color(0xFF2BEE5B)
+
+// Status Colors
+val SuccessColor = Color(0xFF2BEE5B)
+val SuccessContainerLight = Color(0xFFE8FDF0)
+val SuccessContainerDark = Color(0xFF1A3D26)
+val ErrorColor = Color(0xFFE53935)
+val ErrorContainerLight = Color(0xFFFFEBEE)
+val ErrorContainerDark = Color(0xFF3D1A1A)
+val WarningColor = Color(0xFFFF9800)
+val WarningContainerLight = Color(0xFFFFF3E0)
+val WarningContainerDark = Color(0xFF3D2F1A)
+val InfoColor = Color(0xFF2196F3)
+val InfoContainerLight = Color(0xFFE3F2FD)
+val InfoContainerDark = Color(0xFF1A2D3D)
+
+// Divider Colors
+val DividerLight = Color(0xFFEEEEEE)
+val DividerDark = Color(0xFF333333)
+
+// Shadow Color
+val ShadowColor = Color(0x1A000000)
+
+// Switch Colors
+val SwitchTrackCheckedLight = Color(0xFF2BEE5B)
+val SwitchTrackUncheckedLight = Color(0xFFE0E0E0)
+val SwitchTrackCheckedDark = Color(0xFF2BEE5B)
+val SwitchTrackUncheckedDark = Color(0xFF4A4A4A)
+
+// Bill Summary Colors
+val GrandTotalBackgroundLight = Color(0xFFE8FDF0)
+val GrandTotalBackgroundDark = Color(0xFF1A3D26)
+val DiscountColor = Color(0xFF2BEE5B)
+
+// Prescription Card Colors
+val PrescriptionCardComplete = Color(0xFFE8FDF0)
+val PrescriptionCardIncomplete = Color(0xFFFFF9E6)
+
+// Delete/Remove Color
+val DeleteColor = Color(0xFFE53935)
+val DeleteBackgroundLight = Color(0xFFFFEBEE)
+val DeleteBackgroundDark = Color(0xFF3D1A1A)

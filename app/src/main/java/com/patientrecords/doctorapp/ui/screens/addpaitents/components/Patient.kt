@@ -10,29 +10,35 @@ import java.util.UUID
 @Serializable
 data class Patient(
     @SerialName("id")
-    val id: String = UUID.randomUUID().toString(),
-    
+    val id: String,
+
     @SerialName("full_name")
     val fullName: String,
-    
+
     @SerialName("mobile_number")
     val mobileNumber: String,
-    
+
     @SerialName("age")
     val age: Int,
-    
+
     @SerialName("gender")
     val gender: Gender,
-    
+
     @SerialName("address")
     val address: String? = null,
-    
+
+    @SerialName("blood_group")
+    val bloodGroup: String? = null,
+
+    @SerialName("emergency_contact")
+    val emergencyContact: String? = null,
+
     @SerialName("photo_url")
     val photoUrl: String? = null,
-    
+
     @SerialName("created_at")
     val createdAt: String? = null,
-    
+
     @SerialName("updated_at")
     val updatedAt: String? = null
 )
@@ -40,24 +46,30 @@ data class Patient(
 /**
  * Gender enum for patient
  */
+
 @Serializable
 enum class Gender {
-    @SerialName("male")
+    @SerialName("Male")
     MALE,
-    
-    @SerialName("female")
-    FEMALE;
-    
-    fun toDisplayString(): String = when (this) {
+
+    @SerialName("Female")
+    FEMALE,
+
+    @SerialName("Other")
+    OTHER;
+
+    // Helper for display
+    fun displayName(): String = when (this) {
         MALE -> "Male"
         FEMALE -> "Female"
+        OTHER -> "Other"
     }
-    
+
     companion object {
-        fun fromString(value: String): Gender? = when (value.lowercase()) {
+        fun fromString(value: String): Gender = when (value.lowercase()) {
             "male" -> MALE
             "female" -> FEMALE
-            else -> null
+            else -> OTHER
         }
     }
 }
@@ -69,19 +81,19 @@ enum class Gender {
 data class CreatePatientRequest(
     @SerialName("full_name")
     val fullName: String,
-    
+
     @SerialName("mobile_number")
     val mobileNumber: String,
-    
+
     @SerialName("age")
     val age: Int,
-    
+
     @SerialName("gender")
     val gender: Gender,
-    
+
     @SerialName("address")
     val address: String? = null,
-    
+
     @SerialName("photo_url")
     val photoUrl: String? = null
 )

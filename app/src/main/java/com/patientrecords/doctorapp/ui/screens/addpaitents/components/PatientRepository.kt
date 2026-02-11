@@ -35,6 +35,8 @@ class PatientRepositoryImpl : PatientRepository {
     private val storage = supabase.storage
     private val postgrest = supabase.postgrest
 
+    private val patientTable = supabase.postgrest[SupabaseConfig.PATIENTS_TABLE]
+
     /**
      * Upload patient photo to Supabase Storage
      *
@@ -115,26 +117,44 @@ class PatientRepositoryImpl : PatientRepository {
         }
     }
 
-    private val table =
-        SupabaseProvider.client.postgrest[SupabaseConfig.PATIENTS_TABLE]
-    private val patientTable =
-        SupabaseProvider.client.postgrest[SupabaseConfig.PATIENTS_TABLE]
 
     override suspend fun getAllPatients(): Result<List<Patient>> =
         runCatching {
-            patientTable.select().decodeList<Patient>()
+            val result = patientTable.select()
+            println("Raw response: ${result.data}") // Log raw JSON
+            result.decodeList<Patient>()
         }
 
 
+
+    override suspend fun searchPatients(
+        query: String
+    ): Result<List<Patient>> =
+        runCatching {
+            val result = patientTable
+                .select {
+                    filter {
+                        or {
+                            Patient::fullName ilike "%$query%"
+                            Patient::mobileNumber ilike "%$query%"
+                        }
+                    }
+                }
+
+            println("Raw response: Search ${result.data}") // Log raw JSON
+
+            result.decodeList<Patient>()
+        }
+
     suspend fun getById(id: String): MedicineDto =
-        table.select {
+        patientTable.select {
             filter {
                 MedicineDto::id eq id
             }
         }.decodeSingle()
 
     private suspend fun update(id: String, data: MedicineData) {
-        table.update(
+        patientTable.update(
             {
                 set("name", data.name)
                 set("potency", data.potency)
@@ -149,22 +169,6 @@ class PatientRepositoryImpl : PatientRepository {
         }
     }
 
-    override suspend fun searchPatients(
-        query: String
-    ): Result<List<Patient>> =
-        runCatching {
-
-            patientTable
-                .select {
-                    filter {
-                        or {
-                            Patient::fullName ilike "%$query%"
-                            Patient::mobileNumber ilike "%$query%"
-                        }
-                    }
-                }
-                .decodeList<Patient>()
-        }
 
 
     suspend fun updateAndFetch(
@@ -179,7 +183,7 @@ class PatientRepositoryImpl : PatientRepository {
 
 
     suspend fun searchByName(query: String): List<MedicineDto> =
-        table.select {
+        patientTable.select {
             filter {
                 MedicineDto::name ilike "%$query%"
             }

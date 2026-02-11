@@ -1,6 +1,7 @@
 package com.patientrecords.doctorapp.ui.screens
 
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -102,7 +103,7 @@ fun HomeScreen(
                     items(patients) { patient ->
                         PatientListItem(
                             patient = patient,
-                            onClick = { onPatientClick(patient) }
+                            onClick = onPatientClick
                         )
                     }
                 }
@@ -272,14 +273,19 @@ private fun RecentConsultationsHeader(onViewAllClick: () -> Unit) {
 @Composable
 private fun PatientListItem(
     patient: Patient,
-    onClick: () -> Unit
+    onClick: (Patient) -> Unit
 ) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 24.dp)
             .padding(vertical = 6.dp)
-            .clickable(onClick = onClick),
+            .clickable(onClick = {
+
+                onClick(patient)
+
+                Log.d("TAG", "PatientListItem: patient${patient.id} ")
+            }),
         shape = RoundedCornerShape(12.dp),
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.surface
