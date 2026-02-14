@@ -294,7 +294,7 @@ private fun MedicineFormCard(
 
                     prescription.searchState.results.forEach { medicine ->
                         DropdownMenuItem(
-                            text = { Text(medicine.name) },
+                            text = { Text("${medicine.name} ${medicine.pricePerUnit}") },
                             onClick = {
                                 onMedicineSelected(medicine)
                                 showDropdown = false
@@ -304,15 +304,6 @@ private fun MedicineFormCard(
                 }
             }
 
-
-            // ---------- POTENCY ----------
-            DropdownField(
-                value = prescription.potency,
-                options = PotencyOptions.homeopathicPotencies,
-                onOptionSelected = onPotencyChange,
-                label = stringResource(R.string.potency),
-                placeholder = stringResource(R.string.select_potency)
-            )
 
             // ---------- DOSAGE + FREQUENCY ----------
             Row(
@@ -502,7 +493,7 @@ private fun CompletedMedicineCard(
                 ) {
                     Column {
                         Text(
-                            text =stringResource(R.string.medicine),
+                            text = stringResource(R.string.medicine),
                             style = MaterialTheme.typography.labelSmall,
                             color = MaterialTheme.colorScheme.onSurfaceVariant
                         )
@@ -521,13 +512,19 @@ private fun CompletedMedicineCard(
                     modifier = Modifier.fillMaxWidth(),
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.SpaceBetween
-                ){
+                ) {
 
                     Column(
                         modifier = Modifier
                     ) {
-                        DetailColumn(label = stringResource(R.string.potency), value = prescription.potency)
-                        DetailColumn(label =  stringResource(R.string.dosage), value = prescription.dosage)
+                        DetailColumn(
+                            label = stringResource(R.string.potency),
+                            value = prescription.potency
+                        )
+                        DetailColumn(
+                            label = stringResource(R.string.dosage),
+                            value = prescription.dosage
+                        )
                     }
 
                     Spacer(Modifier.height(8.dp))
