@@ -10,6 +10,7 @@ import com.patientrecords.doctorapp.ui.theme.HealthcarePatientTheme
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        applyLanguage(this, "bn")
         enableEdgeToEdge()
         setContent {
             HealthcarePatientTheme {

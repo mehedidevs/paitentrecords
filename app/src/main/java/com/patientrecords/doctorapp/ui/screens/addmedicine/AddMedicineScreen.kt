@@ -24,6 +24,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.patientrecords.doctorapp.addmedicine.AddMedicineViewModel
+import com.patientrecords.doctorapp.patientdetils.data.Medicine
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -161,14 +162,11 @@ class AddMedicineState {
 
     fun isValid(): Boolean = medicineName.isNotBlank()
 
-    fun toMedicineData(): MedicineData {
-        return MedicineData(
+    fun toMedicineData(): Medicine {
+        return Medicine(
             name = medicineName.trim(),
-            potency = selectedPotency,
-            dosageForm = dosageForm,
-            durationUnit = durationUnit,
-            defaultPrice = defaultPrice.toDoubleOrNull() ?: 0.0,
-            id = id
+            defaultPotency = selectedPotency,
+            pricePerUnit = defaultPrice.toDoubleOrNull() ?: 0.0,
         )
     }
 }

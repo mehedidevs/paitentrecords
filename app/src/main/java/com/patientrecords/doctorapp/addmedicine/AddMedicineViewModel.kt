@@ -3,6 +3,7 @@ package com.patientrecords.doctorapp.addmedicine
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.patientrecords.doctorapp.patientdetils.data.Medicine
 import com.patientrecords.doctorapp.ui.screens.addmedicine.MedicineData
 import kotlinx.coroutines.launch
 
@@ -13,12 +14,12 @@ class AddMedicineViewModel(
     var uiState: AddMedicineUiState = AddMedicineUiState.Idle
         private set
 
-    fun saveMedicine(data: MedicineData) {
+    fun saveMedicine(data: Medicine) {
         uiState = AddMedicineUiState.Loading
 
         viewModelScope.launch {
             try {
-                repository.insertMedicine(data.toDto())
+                repository.insertMedicine(data)
                 uiState = AddMedicineUiState.Success
             } catch (e: Exception) {
                 uiState = AddMedicineUiState.Error(

@@ -24,6 +24,7 @@ import com.patientrecords.doctorapp.patientdetils.ui.screens.prescription.AddPre
 import com.patientrecords.doctorapp.patientdetils.ui.screens.visit.NewVisitScreen
 import com.patientrecords.doctorapp.ui.screens.addpaitents.AddPatientScreen
 import com.patientrecords.doctorapp.ui.screens.HomeScreen
+import com.patientrecords.doctorapp.ui.screens.addmedicine.AddMedicineScreen
 import com.patientrecords.doctorapp.ui.screens.patientsearch.SearchPatientScreen
 import kotlinx.serialization.Serializable
 import org.koin.androidx.compose.koinViewModel
@@ -43,6 +44,9 @@ sealed interface Screen {
 
     @Serializable
     data object PatientList : Screen
+
+    @Serializable
+    data object AddMedicineScreen : Screen
 
     @Serializable
     data class PatientProfile(val patientId: String, val patientName: String) : Screen
@@ -91,25 +95,36 @@ fun DoctorAppNavigation(
         navController = navController, startDestination = Screen.Home
     ) {
         composable<Screen.Home> {
-            HomeScreen(onAddPatientClick = {
+            HomeScreen(
+                onAddPatientClick = {
                 navController.navigate(Screen.AddPatient)
-            }, onPatientClick = { patient ->
-                // Navigate to patient details
-                navController.navigate(
-                    Screen.PatientProfile(
-                        patientId = patient.id, patientName = patient.fullName
+            }, onAddMedicineClick = {
+                navController.navigate(Screen.AddMedicineScreen)
+            },
+
+                onPatientClick = { patient ->
+                    // Navigate to patient details
+                    navController.navigate(
+                        Screen.PatientProfile(
+                            patientId = patient.id, patientName = patient.fullName
+                        )
                     )
-                )
-            }, onViewAllClick = {
-                // Navigate to all patients list
-                // TODO: Implement all patients screen
-            }, onSearchClick = {
-                navController.navigate(Screen.SearchPatientScreen)
-            })
+                }, onViewAllClick = {
+                    // Navigate to all patients list
+                    // TODO: Implement all patients screen
+                }, onSearchClick = {
+                    navController.navigate(Screen.SearchPatientScreen)
+                })
         }
 
         composable<Screen.AddPatient> {
             AddPatientScreen(
+                onNavigateBack = {
+                    navController.popBackStack()
+                })
+        }
+        composable<Screen.AddMedicineScreen> {
+            AddMedicineScreen(
                 onNavigateBack = {
                     navController.popBackStack()
                 })
@@ -233,7 +248,10 @@ fun DoctorAppNavigation(
                         "prescriptions", viewModel.getPrescriptions()
                     )
                     navController.popBackStack()
-                })
+                },
+                onCompleted = viewModel::onCompleted,
+
+                )
         }
 
         // Bill Summary

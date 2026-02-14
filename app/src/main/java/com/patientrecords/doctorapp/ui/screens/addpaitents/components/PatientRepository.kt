@@ -7,6 +7,7 @@ import com.patientrecords.doctorapp.addmedicine.MedicineDto
 import com.patientrecords.doctorapp.database.SupabaseProvider
 import com.patientrecords.doctorapp.ui.screens.addmedicine.MedicineData
 import io.github.jan.supabase.postgrest.postgrest
+import io.github.jan.supabase.postgrest.query.Order
 import io.github.jan.supabase.storage.storage
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -120,11 +121,14 @@ class PatientRepositoryImpl : PatientRepository {
 
     override suspend fun getAllPatients(): Result<List<Patient>> =
         runCatching {
-            val result = patientTable.select()
-            println("Raw response: ${result.data}") // Log raw JSON
+            val result = patientTable
+                .select {
+                    order("created_at", Order.DESCENDING)
+                }
+
+            println("Raw response: ${result.data}")
             result.decodeList<Patient>()
         }
-
 
 
     override suspend fun searchPatients(
@@ -168,7 +172,6 @@ class PatientRepositoryImpl : PatientRepository {
             }
         }
     }
-
 
 
     suspend fun updateAndFetch(

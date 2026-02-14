@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -20,11 +21,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.PopupProperties
+import com.patientrecords.doctorapp.R
 import com.patientrecords.doctorapp.patientdetils.data.Medicine
 import com.patientrecords.doctorapp.patientdetils.data.MedicineSearchState
 import com.patientrecords.doctorapp.patientdetils.data.PotencyOptions
@@ -75,13 +78,14 @@ fun AddPrescriptionScreen(
     onRemoveMedicine: (Int) -> Unit,
     onEditDetails: (Int) -> Unit,
     onReviewBill: () -> Unit,
+    onCompleted: (Int) -> Unit,
     viewModel: AddPrescriptionViewModel? = null,
     modifier: Modifier = Modifier
 ) {
     Scaffold(
         topBar = {
             HealthcareTopAppBar(
-                title = "Add Prescription",
+                title = stringResource(R.string.add_prescription),
                 onNavigateBack = onNavigateBack
             )
         },
@@ -117,13 +121,13 @@ fun AddPrescriptionScreen(
             item {
                 Column {
                     Text(
-                        text = "Prescription for ${uiState.patientName}",
+                        text = stringResource(R.string.prescription_for, uiState.patientName),
                         style = MaterialTheme.typography.headlineSmall.copy(
                             fontWeight = FontWeight.SemiBold
                         )
                     )
                     Text(
-                        text = "Visit Date: ${uiState.visitDate}",
+                        text = stringResource(R.string.visit_date, uiState.visitDate),
                         style = MaterialTheme.typography.bodyMedium,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
@@ -169,7 +173,8 @@ fun AddPrescriptionScreen(
                         onPriceChange = { price ->
                             onPriceChange(index, price)
                         },
-                        onRemove = { onRemoveMedicine(index) }
+                        onRemove = { onRemoveMedicine(index) },
+                        onCompleted = { onCompleted(index) }
                     )
                 }
             }
@@ -200,11 +205,12 @@ private fun MedicineFormCard(
     onFrequencyChange: (String) -> Unit,
     onDaysChange: (Int) -> Unit,
     onPriceChange: (Double) -> Unit,
-    onRemove: () -> Unit
+    onRemove: () -> Unit,
+    onCompleted: () -> Unit
 ) {
     var showDropdown by remember { mutableStateOf(false) }
     val scope = rememberCoroutineScope()
-
+    val isMedicineValid = prescription.searchState.query.isNotBlank()
     Surface(
         modifier = Modifier.fillMaxWidth(),
         shape = RoundedCornerShape(16.dp),
@@ -225,7 +231,7 @@ private fun MedicineFormCard(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    text = "Medicine #$index",
+                    text = stringResource(R.string.medicine, index),
                     style = MaterialTheme.typography.titleMedium.copy(
                         fontWeight = FontWeight.SemiBold
                     )
@@ -254,7 +260,7 @@ private fun MedicineFormCard(
                         onMedicineSearch(query)   // let ViewModel debounce
                     },
 
-                    label = "Medicine Name",
+                    label = stringResource(R.string.medicine_name),
                     placeholder = "e.g. Arnica Mont",
 
                     trailingIcon = {
@@ -304,8 +310,8 @@ private fun MedicineFormCard(
                 value = prescription.potency,
                 options = PotencyOptions.homeopathicPotencies,
                 onOptionSelected = onPotencyChange,
-                label = "Potency",
-                placeholder = "Select potency..."
+                label = stringResource(R.string.potency),
+                placeholder = stringResource(R.string.select_potency)
             )
 
             // ---------- DOSAGE + FREQUENCY ----------
@@ -316,16 +322,16 @@ private fun MedicineFormCard(
                 HealthcareTextField(
                     value = prescription.dosage,
                     onValueChange = onDosageChange,
-                    label = "Dosage",
-                    placeholder = "e.g. 4 pills",
+                    label = stringResource(R.string.dosage),
+                    placeholder = stringResource(R.string.e_g_4_pills),
                     modifier = Modifier.weight(1f)
                 )
 
                 HealthcareTextField(
                     value = prescription.frequency,
                     onValueChange = onFrequencyChange,
-                    label = "Frequency",
-                    placeholder = "e.g. 3x daily",
+                    label = stringResource(R.string.frequency),
+                    placeholder = stringResource(R.string.e_g_3x_daily),
                     modifier = Modifier.weight(1f)
                 )
             }
@@ -338,7 +344,7 @@ private fun MedicineFormCard(
 
                 Column(modifier = Modifier.weight(1f)) {
                     Text(
-                        text = "Days",
+                        text = stringResource(R.string.days),
                         style = MaterialTheme.typography.labelLarge,
                         color = MaterialTheme.colorScheme.onSurface,
                         modifier = Modifier.padding(bottom = 8.dp)
@@ -364,7 +370,7 @@ private fun MedicineFormCard(
                                 style = MaterialTheme.typography.bodyLarge
                             )
                             Text(
-                                text = "days",
+                                text = stringResource(R.string.days),
                                 style = MaterialTheme.typography.bodyMedium,
                                 color = MaterialTheme.colorScheme.onSurfaceVariant
                             )
@@ -375,9 +381,9 @@ private fun MedicineFormCard(
                 HealthcareTextField(
                     value =
                         if (prescription.price > 0)
-                            "$ ${prescription.price}"
+                            " ${prescription.price}"
                         else
-                            "$ 0.00",
+                            "0.00",
 
                     onValueChange = { value ->
                         val price =
@@ -388,11 +394,20 @@ private fun MedicineFormCard(
                         onPriceChange(price)
                     },
 
-                    label = "Price",
+                    label = stringResource(R.string.price),
                     modifier = Modifier.weight(1f),
                     keyboardOptions =
                         KeyboardOptions(keyboardType = KeyboardType.Decimal)
                 )
+            }
+
+            Button(
+                onClick = onCompleted,
+                enabled = isMedicineValid,
+                modifier = Modifier.fillMaxWidth(),
+                shape = RoundedCornerShape(12.dp)
+            ) {
+                Text(stringResource(R.string.ok))
             }
         }
     }
@@ -411,7 +426,7 @@ private fun CompletedMedicineCard(
     Surface(
         modifier = Modifier.fillMaxWidth(),
         shape = RoundedCornerShape(16.dp),
-        color = SuccessColor,
+        color = SuccessColor.copy(alpha = 0.1f),
         border = ButtonDefaults.outlinedButtonBorder.copy(width = 1.dp)
     ) {
         Column(
@@ -425,11 +440,16 @@ private fun CompletedMedicineCard(
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .clickable { expanded = !expanded }, // toggle expand
-                horizontalArrangement = Arrangement.SpaceBetween,
+                    .clickable { expanded = !expanded },
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Row(verticalAlignment = Alignment.CenterVertically) {
+
+                // Content takes remaining width
+                Row(
+                    modifier = Modifier.weight(1f),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+
                     Icon(
                         imageVector = if (expanded)
                             Icons.Default.KeyboardArrowUp
@@ -438,38 +458,38 @@ private fun CompletedMedicineCard(
                         contentDescription = "Expand"
                     )
 
+                    Spacer(Modifier.width(4.dp))
+
                     Text(
-                        text = "Medicine #$index",
+                        text = "${stringResource(R.string.medicine)} #$index",
                         style = MaterialTheme.typography.labelMedium,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
+
                     Spacer(Modifier.width(8.dp))
 
-                    // Show medicine name in collapsed header
                     Text(
                         text = prescription.medicineName,
                         style = MaterialTheme.typography.titleMedium.copy(
                             fontWeight = FontWeight.SemiBold
                         )
                     )
-
-                    Spacer(Modifier.width(8.dp))
-
-                    IconButton(
-                        onClick = onRemove,
-                        modifier = Modifier.size(24.dp)
-                    ) {
-                        Icon(
-                            imageVector = Icons.Outlined.Delete,
-                            contentDescription = "Remove",
-                            tint = DeleteColor,
-                            modifier = Modifier.size(18.dp)
-                        )
-                    }
                 }
 
-
+                // Always pinned to end
+                IconButton(
+                    onClick = onRemove,
+                    modifier = Modifier.size(24.dp)
+                ) {
+                    Icon(
+                        imageVector = Icons.Outlined.Delete,
+                        contentDescription = "Remove",
+                        tint = DeleteColor,
+                        modifier = Modifier.size(18.dp)
+                    )
+                }
             }
+
 
             /** -------- EXPANDED CONTENT -------- **/
             if (expanded) {
@@ -482,7 +502,7 @@ private fun CompletedMedicineCard(
                 ) {
                     Column {
                         Text(
-                            text = "MEDICINE",
+                            text =stringResource(R.string.medicine),
                             style = MaterialTheme.typography.labelSmall,
                             color = MaterialTheme.colorScheme.onSurfaceVariant
                         )
@@ -499,47 +519,36 @@ private fun CompletedMedicineCard(
 
                 Row(
                     modifier = Modifier.fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.SpaceBetween
-                ) {
-                    DetailColumn(label = "POTENCY", value = prescription.potency)
-                    DetailColumn(label = "DOSAGE", value = prescription.dosage)
+                ){
+
+                    Column(
+                        modifier = Modifier
+                    ) {
+                        DetailColumn(label = stringResource(R.string.potency), value = prescription.potency)
+                        DetailColumn(label =  stringResource(R.string.dosage), value = prescription.dosage)
+                    }
+
+                    Spacer(Modifier.height(8.dp))
+
+                    Column(
+                        modifier = Modifier
+                    ) {
+                        DetailColumn(
+                            label = stringResource(R.string.duration),
+                            value = "${prescription.durationDays} ${stringResource(R.string.days)}"
+                        )
+                        DetailColumn(
+                            label = stringResource(R.string.frequency),
+                            value = prescription.frequency
+                        )
+                    }
                 }
+
 
                 Spacer(Modifier.height(8.dp))
 
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween
-                ) {
-                    DetailColumn(
-                        label = "DURATION",
-                        value = "${prescription.durationDays} Days"
-                    )
-                    DetailColumn(
-                        label = "FREQUENCY",
-                        value = prescription.frequency
-                    )
-                }
-
-                Spacer(Modifier.height(12.dp))
-
-                TextButton(
-                    onClick = onEdit,
-                    contentPadding = PaddingValues(0.dp)
-                ) {
-                    Icon(
-                        imageVector = Icons.Outlined.Edit,
-                        contentDescription = null,
-                        modifier = Modifier.size(16.dp),
-                        tint = PrimaryGreen
-                    )
-                    Spacer(Modifier.width(4.dp))
-                    Text(
-                        text = "Edit Details",
-                        color = PrimaryGreen,
-                        style = MaterialTheme.typography.labelMedium
-                    )
-                }
             }
         }
     }
@@ -593,7 +602,7 @@ private fun AddMedicineButton(onClick: () -> Unit) {
             )
             Spacer(modifier = Modifier.width(8.dp))
             Text(
-                text = "Add Another Medicine",
+                text = stringResource(R.string.add_another_medicine),
                 style = MaterialTheme.typography.labelLarge,
                 color = PrimaryGreen
             )
@@ -622,12 +631,12 @@ private fun PrescriptionBottomBar(
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 Text(
-                    text = "Total Items: $totalItems",
+                    text = stringResource(R.string.total_items, totalItems),
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
                 Text(
-                    text = "Total: $${"%.2f".format(totalPrice)}",
+                    text = stringResource(R.string.total, "%.2f".format(totalPrice)),
                     style = MaterialTheme.typography.titleMedium.copy(
                         fontWeight = FontWeight.Bold
                     )
@@ -637,7 +646,7 @@ private fun PrescriptionBottomBar(
             Spacer(modifier = Modifier.height(12.dp))
 
             PrimaryButton(
-                text = "Upload Prescription",
+                text = stringResource(R.string.upload_prescription),
                 onClick = onUploadPrescription,
                 icon = Icons.AutoMirrored.Filled.ArrowForward
             )
@@ -689,7 +698,8 @@ private fun AddPrescriptionScreenPreview() {
             onAddMedicine = {},
             onRemoveMedicine = {},
             onEditDetails = {},
-            onReviewBill = {}
+            onReviewBill = {},
+            onCompleted = {}
         )
     }
 }
@@ -727,7 +737,8 @@ private fun AddPrescriptionScreenDarkPreview() {
             onAddMedicine = {},
             onRemoveMedicine = {},
             onEditDetails = {},
-            onReviewBill = {}
+            onReviewBill = {},
+            onCompleted = {}
         )
     }
 }

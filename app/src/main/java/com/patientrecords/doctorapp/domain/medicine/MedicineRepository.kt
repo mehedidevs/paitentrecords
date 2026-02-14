@@ -2,14 +2,17 @@ package com.patientrecords.doctorapp.domain.medicine
 
 import com.patientrecords.doctorapp.addmedicine.MedicineDto
 import com.patientrecords.doctorapp.database.SupabaseProvider
+import com.patientrecords.doctorapp.patientdetils.data.Medicine
 import com.patientrecords.doctorapp.ui.screens.addmedicine.MedicineData
+import com.patientrecords.doctorapp.ui.screens.addpaitents.components.SupabaseConfig
+import io.github.jan.supabase.SupabaseClient
 import io.github.jan.supabase.postgrest.postgrest
 import io.github.jan.supabase.postgrest.query.Returning
 
 class MedicineRepository {
-
+    private val supabase: SupabaseClient = SupabaseConfig.client
     private val table =
-        SupabaseProvider.client.postgrest["medicines"]
+        supabase.postgrest["medicines"]
 
     suspend fun getAll(): List<MedicineDto> =
         table.select().decodeList()
@@ -21,14 +24,11 @@ class MedicineRepository {
             }
         }.decodeSingle()
 
-    private suspend fun update(id: String, data: MedicineData) {
+    private suspend fun update(id: String, data: Medicine) {
         table.update(
             {
                 set("name", data.name)
-                set("potency", data.potency)
-                set("dosage_form", data.dosageForm)
-                set("duration_unit", data.durationUnit)
-                set("default_price", data.defaultPrice)
+                set("default_price", data.pricePerUnit)
             }
         ) {
             filter {
@@ -39,17 +39,13 @@ class MedicineRepository {
 
     suspend fun updateAndFetch(
         id: String,
-        data: MedicineData
+        data: Medicine
     ): MedicineDto {
         update(id, data)
         println("Updated medicine: get $data")
 
         return getById(id)
     }
-
-
-
-
 
 
     suspend fun searchByName(query: String): List<MedicineDto> =

@@ -31,12 +31,14 @@ import com.patientrecords.doctorapp.ui.screens.addpaitents.components.Patient
 import com.patientrecords.doctorapp.ui.theme.HealthcarePatientTheme
 import com.patientrecords.doctorapp.ui.screens.addpaitents.components.GetPatientResult
 import com.patientrecords.doctorapp.ui.screens.patientlist.PatientViewModel
+import com.patientrecords.doctorapp.utils.toFormatedDate
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun HomeScreen(
     viewModel: PatientViewModel = koinViewModel(),
     onAddPatientClick: () -> Unit = {},
+    onAddMedicineClick: () -> Unit = {},
     onPatientClick: (Patient) -> Unit = {},
     onViewAllClick: () -> Unit = {},
     onSearchClick: () -> Unit = {}
@@ -94,6 +96,11 @@ fun HomeScreen(
 
                     item {
                         AddPatientButton(onClick = onAddPatientClick)
+                    }
+
+
+                    item {
+                        AddPatientButton(onClick = onAddMedicineClick)
                     }
 
                     item {
@@ -249,21 +256,21 @@ private fun RecentConsultationsHeader(onViewAllClick: () -> Unit) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 24.dp)
+            .padding(horizontal = 16.dp)
             .padding(top = 16.dp, bottom = 12.dp),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
         Text(
-            text = "Recent Consultations",
-            style = MaterialTheme.typography.displaySmall,
+            text = "Recent Patients",
+            style = MaterialTheme.typography.titleLarge,
             fontWeight = FontWeight.Bold,
             color = MaterialTheme.colorScheme.onBackground
         )
         TextButton(onClick = onViewAllClick) {
             Text(
                 text = "View All",
-                style = MaterialTheme.typography.labelLarge,
+                style = MaterialTheme.typography.titleMedium,
                 color = MaterialTheme.colorScheme.primary
             )
         }
@@ -332,7 +339,7 @@ private fun PatientListItem(
                 shape = RoundedCornerShape(6.dp)
             ) {
                 Text(
-                    text = "${patient.createdAt}",
+                    text = patient.createdAt.toFormatedDate(),
                     style = MaterialTheme.typography.labelMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                     modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp)

@@ -1,5 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Numbers -->
+    <string name="number_0">0</string>
+    <string name="number_1">1</string>
+    <string name="number_2">2</string>
+    <string name="number_3">3</string>
+    <string name="number_4">4</string>
+    <string name="number_5">5</string>
+    <string name="number_6">6</string>
+    <string name="number_7">7</string>
+    <string name="number_8">8</string>
+    <string name="number_9">9</string>
+
     <string name="app_name">Patient Record</string>
 
     <!-- Splash Screen -->
@@ -21,17 +33,7 @@
     <string name="cd_wifi">WiFi connection</string>
     <string name="cd_battery">Battery level</string>
 
-    <!-- Numbers -->
-    <string name="number_0">0</string>
-    <string name="number_1">1</string>
-    <string name="number_2">2</string>
-    <string name="number_3">3</string>
-    <string name="number_4">4</string>
-    <string name="number_5">5</string>
-    <string name="number_6">6</string>
-    <string name="number_7">7</string>
-    <string name="number_8">8</string>
-    <string name="number_9">9</string>
+
 
     <!-- Add Patient Screen -->
     <string name="add_new_patient">Add New Patient</string>
@@ -86,5 +88,44 @@
     <string name="cd_add_photo">Add patient photo</string>
     <string name="cd_selected_photo">Selected patient photo</string>
     <string name="cd_phone_icon">Phone icon</string>
+<!--    <string name="add_prescription">Add Prescription</string>
+    <string name="prescription_for">Prescription for %1$s</string>
+    <string name="visit_date">Visit Date: %1$s</string>
+    <string name="medicine">Medicine #%1$d</string>
+    <string name="medicine_name">Medicine Name</string>
+    <string name="potency">Potency</string>
+    <string name="select_potency">Select potency...</string>
+    <string name="dosage">Dosage</string>
+    <string name="e_g_4_pills">e.g. 4 pills</string>
+    <string name="frequency">Frequency</string>
+    <string name="e_g_3x_daily">e.g. 3x daily</string>
+    <string name="days">Days</string>
+    <string name="price">Price</string>
+    <string name="ok">OK</string>
+    <string name="duration">DURATION</string>
+    <string name="add_another_medicine">Add Another Medicine</string>
+    <string name="total_items">Total Items: %1$d</string>
+    <string name="total">Total: $%1$s</string>
+    <string name="upload_prescription">Upload Prescription</string>-->
+
+    <string name="add_prescription">প্রেসক্রিপশন যোগ করুন</string>
+    <string name="prescription_for">%1$s এর জন্য প্রেসক্রিপশন</string>
+    <string name="visit_date">ভিজিটের তারিখ: %1$s</string>
+    <string name="medicine">ওষুধ #%1$d</string>
+    <string name="medicine_name">ওষুধের নাম</string>
+    <string name="potency">পোটেন্সি</string>
+    <string name="select_potency">পোটেন্সি নির্বাচন করুন...</string>
+    <string name="dosage">ডোজ</string>
+    <string name="e_g_4_pills">যেমন: ৪টি পিল</string>
+    <string name="frequency">খাওয়ার সময়সূচি</string>
+    <string name="e_g_3x_daily">যেমন: দিনে ৩ বার</string>
+    <string name="days">দিন</string>
+    <string name="price">মূল্য</string>
+    <string name="ok">ঠিক আছে</string>
+    <string name="duration">সময়কাল</string>
+    <string name="add_another_medicine">আরেকটি ওষুধ যোগ করুন</string>
+    <string name="total_items">মোট আইটেম: %1$d</string>
+    <string name="total">মোট: $%1$s</string>
+    <string name="upload_prescription">প্রেসক্রিপশন আপলোড করুন</string>
 
 </resources>

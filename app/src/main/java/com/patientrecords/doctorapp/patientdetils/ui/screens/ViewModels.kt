@@ -321,13 +321,13 @@ class AddPrescriptionViewModel(
             )
 
             // ✅ AUTO-MARK COMPLETE IF REQUIRED FIELDS EXIST
-            val isComplete =
-                updated.medicineName.isNotBlank()/* &&
-                        updated.potency.isNotBlank() &&
-                        updated.dosage.isNotBlank() &&
-                        updated.frequency.isNotBlank()*/
+            /* val isComplete =
+                 updated.medicineName.isNotBlank() &&
+                         updated.potency.isNotBlank() &&
+                         updated.dosage.isNotBlank() &&
+                         updated.frequency.isNotBlank()*/
 
-            updated.copy(isComplete = isComplete)
+            updated.copy()
         }
     }
 
@@ -349,6 +349,9 @@ class AddPrescriptionViewModel(
 
     fun updatePrice(index: Int, price: Double) =
         updatePrescription(index) { it.copy(price = price) }
+
+    fun onCompleted(index: Int) =
+        updatePrescription(index) { it.copy(isComplete = true) }
 
     // =========================
     // 🔹 ADD / REMOVE ROWS

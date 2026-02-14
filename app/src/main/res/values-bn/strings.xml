@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">রোগীর রেকর্ড</string>
+    <!-- Numbers -->
+    <string name="number_0">0</string>
+    <string name="number_1">1</string>
+    <string name="number_2">2</string>
+    <string name="number_3">3</string>
+    <string name="number_4">4</string>
+    <string name="number_5">5</string>
+    <string name="number_6">6</string>
+    <string name="number_7">7</string>
+    <string name="number_8">8</string>
+    <string name="number_9">9</string>
+    <!-- Splash Screen -->
+    <string name="app_title">রোগীর রেকর্ড</string>
+    <string name="app_subtitle">নিরাপদ হোমিওপ্যাথি ব্যবস্থাপনা</string>
+    <string name="version">সংস্করণ ১.০</string>
+
+    <!-- Lock Screen -->
+    <string name="welcome_back">আবার স্বাগতম,\n%s</string>
+    <string name="enter_pin">আনলক করতে পিন লিখুন</string>
+    <string name="forgot_pin">পিন ভুলে গেছেন?</string>
+
+    <!-- Accessibility -->
+    <string name="cd_app_logo">অ্যাপ লোগো</string>
+    <string name="cd_user_avatar">ব্যবহারকারীর ছবি</string>
+    <string name="cd_fingerprint">ফিঙ্গারপ্রিন্ট যাচাইকরণ</string>
+    <string name="cd_backspace">শেষ সংখ্যা মুছুন</string>
+    <string name="cd_signal">সিগন্যাল শক্তি</string>
+    <string name="cd_wifi">ওয়াইফাই সংযোগ</string>
+    <string name="cd_battery">ব্যাটারি স্তর</string>
+
+    <!-- Add Patient Screen -->
+    <string name="add_new_patient">নতুন রোগী যোগ করুন</string>
+    <string name="add_photo">ছবি যোগ করুন</string>
+    <string name="change_photo">ছবি পরিবর্তন করুন</string>
+    <string name="full_name">পূর্ণ নাম</string>
+    <string name="full_name_placeholder">যেমন: জন ডো</string>
+    <string name="mobile_number">মোবাইল নম্বর</string>
+    <string name="mobile_number_placeholder">১০ সংখ্যার নম্বর</string>
+    <string name="age">বয়স</string>
+    <string name="gender">লিঙ্গ</string>
+    <string name="male">পুরুষ</string>
+    <string name="female">মহিলা</string>
+    <string name="address">ঠিকানা</string>
+    <string name="address_placeholder">রাস্তা, শহর...</string>
+    <string name="optional">ঐচ্ছিক</string>
+    <string name="required">*</string>
+    <string name="save_patient">রোগী সংরক্ষণ করুন</string>
+
+    <!-- Photo Picker -->
+    <string name="select_photo">ছবি নির্বাচন করুন</string>
+    <string name="camera">ক্যামেরা</string>
+    <string name="gallery">গ্যালারি</string>
+    <string name="remove_photo">ছবি সরান</string>
+
+    <!-- Validation Messages -->
+    <string name="error_name_required">পূর্ণ নাম আবশ্যক</string>
+    <string name="error_name_min_length">নাম কমপক্ষে ২ অক্ষরের হতে হবে</string>
+    <string name="error_name_max_length">নাম ১০০ অক্ষরের বেশি হতে পারবে না</string>
+    <string name="error_name_invalid">নামে শুধু অক্ষর ও স্পেস থাকতে পারবে</string>
+    <string name="error_mobile_required">মোবাইল নম্বর আবশ্যক</string>
+    <string name="error_mobile_length">মোবাইল নম্বর ১০ সংখ্যার হতে হবে</string>
+    <string name="error_mobile_invalid">মোবাইল নম্বর সঠিক নয়</string>
+    <string name="error_age_required">বয়স আবশ্যক</string>
+    <string name="error_age_invalid">সঠিক বয়স লিখুন</string>
+    <string name="error_age_min">বয়স কমপক্ষে ১ হতে হবে</string>
+    <string name="error_gender_required">লিঙ্গ নির্বাচন করুন</string>
+    <string name="error_address_max_length">ঠিকানা ৫০০ অক্ষরের বেশি হতে পারবে না</string>
+
+    <!-- Success/Error Messages -->
+    <string name="success_patient_added">রোগী সফলভাবে যোগ হয়েছে!</string>
+    <string name="error_form_fix">ফর্মের ভুলগুলো ঠিক করুন</string>
+    <string name="error_photo_upload">ছবি আপলোড করা যায়নি</string>
+    <string name="error_generic">কিছু ভুল হয়েছে। আবার চেষ্টা করুন।</string>
+
+    <!-- Permissions -->
+    <string name="permission_camera_rationale">ছবি তুলতে ক্যামেরা অনুমতি দরকার</string>
+    <string name="permission_storage_rationale">ছবি নির্বাচন করতে স্টোরেজ অনুমতি দরকার</string>
+
+    <!-- Content Descriptions -->
+    <string name="cd_back">পেছনে যান</string>
+    <string name="cd_add_photo">রোগীর ছবি যোগ করুন</string>
+    <string name="cd_selected_photo">নির্বাচিত রোগীর ছবি</string>
+    <string name="cd_phone_icon">ফোন আইকন</string>
+
+    <string name="add_prescription">প্রেসক্রিপশন যোগ করুন</string>
+    <string name="prescription_for">%1$s এর জন্য প্রেসক্রিপশন</string>
+    <string name="visit_date">ভিজিটের তারিখ: %1$s</string>
+    <string name="medicine">ওষুধ #%1$d</string>
+    <string name="medicine_name">ওষুধের নাম</string>
+    <string name="potency">পোটেন্সি</string>
+    <string name="select_potency">পোটেন্সি নির্বাচন করুন...</string>
+    <string name="dosage">ডোজ</string>
+    <string name="e_g_4_pills">যেমন: ৪টি পিল</string>
+    <string name="frequency">খাওয়ার সময়সূচি</string>
+    <string name="e_g_3x_daily">যেমন: দিনে ৩ বার</string>
+    <string name="days">দিন</string>
+    <string name="price">মূল্য</string>
+    <string name="ok">ঠিক আছে</string>
+    <string name="duration">সময়কাল</string>
+    <string name="add_another_medicine">আরেকটি ওষুধ যোগ করুন</string>
+    <string name="total_items">মোট আইটেম: %1$d</string>
+    <string name="total">মোট: $%1$s</string>
+    <string name="upload_prescription">প্রেসক্রিপশন আপলোড করুন</string>
+
+</resources>
