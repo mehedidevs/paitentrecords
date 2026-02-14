@@ -1,6 +1,7 @@
 package com.patientrecords.doctorapp.addmedicine
 
-import com.patientrecords.doctorapp.ui.screens.addmedicine.MedicineData
+import com.patientrecords.doctorapp.medicinelist.MedicineUiModel
+import com.patientrecords.doctorapp.patientdetils.data.Medicine
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -19,13 +20,13 @@ data class MedicineDto(
 )
 
 
-fun MedicineData.toDto(): MedicineDto {
-    return MedicineDto(
+fun Medicine.toDto(): MedicineUiModel {
+    return MedicineUiModel(
         id = id,
         name = name.trim(),
-        potency = potency,
-        dosageForm = dosageForm,
-        durationUnit = durationUnit,
-        defaultPrice = defaultPrice,
+        potency = "",
+        dosageForm = TODO(),
+        durationUnit = TODO(),
+        defaultPrice = TODO(),
     )
 }

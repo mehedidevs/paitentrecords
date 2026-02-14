@@ -1,4 +1,4 @@
-package com.patientrecords.doctorapp.ui.screens.addpaitents.components
+package com.patientrecords.doctorapp.addpaitents.components
 
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.core.tween

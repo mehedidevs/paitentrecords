@@ -1,8 +1,8 @@
-package com.patientrecords.doctorapp.ui.screens.patientsearch
+package com.patientrecords.doctorapp.patientsearch
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.patientrecords.doctorapp.ui.screens.addpaitents.components.PatientRepository
+import com.patientrecords.doctorapp.addpaitents.components.PatientRepository
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow

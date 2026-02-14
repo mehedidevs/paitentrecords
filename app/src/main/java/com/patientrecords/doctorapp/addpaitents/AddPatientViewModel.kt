@@ -1,17 +1,17 @@
-package com.patientrecords.doctorapp.ui.screens.addpaitents
+package com.patientrecords.doctorapp.addpaitents
 
 import android.content.Context
 import android.net.Uri
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.patientrecords.doctorapp.ui.screens.addpaitents.components.Gender
-import com.patientrecords.doctorapp.ui.screens.addpaitents.validation.PatientFormEvent
-import com.patientrecords.doctorapp.ui.screens.addpaitents.validation.PatientFormState
-import com.patientrecords.doctorapp.ui.screens.addpaitents.components.AddPatientParams
-import com.patientrecords.doctorapp.ui.screens.addpaitents.components.AddPatientResult
-import com.patientrecords.doctorapp.ui.screens.addpaitents.components.AddPatientUseCase
-import com.patientrecords.doctorapp.ui.screens.addpaitents.validation.PatientFormValidator
-import com.patientrecords.doctorapp.ui.screens.addpaitents.validation.errorOrNull
+import com.patientrecords.doctorapp.addpaitents.components.Gender
+import com.patientrecords.doctorapp.addpaitents.validation.PatientFormEvent
+import com.patientrecords.doctorapp.addpaitents.validation.PatientFormState
+import com.patientrecords.doctorapp.addpaitents.components.AddPatientParams
+import com.patientrecords.doctorapp.addpaitents.components.AddPatientResult
+import com.patientrecords.doctorapp.addpaitents.components.AddPatientUseCase
+import com.patientrecords.doctorapp.addpaitents.validation.PatientFormValidator
+import com.patientrecords.doctorapp.addpaitents.validation.errorOrNull
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

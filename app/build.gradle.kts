@@ -67,6 +67,7 @@ dependencies {
     val nav_version = "2.9.0-rc01" // Check for the latest stable version
     implementation("androidx.navigation:navigation-compose:$nav_version")
 
+    implementation("androidx.compose.material3:material3:1.2.1")
 
     // Supabase - ONLY in this module
     implementation(platform(libs.supabase.bom))

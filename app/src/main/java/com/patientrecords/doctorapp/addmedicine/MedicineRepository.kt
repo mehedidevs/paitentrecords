@@ -2,9 +2,8 @@ package com.patientrecords.doctorapp.addmedicine
 
 
 import android.util.Log
-import com.patientrecords.doctorapp.database.SupabaseProvider
 import com.patientrecords.doctorapp.patientdetils.data.Medicine
-import com.patientrecords.doctorapp.ui.screens.addpaitents.components.SupabaseConfig
+import com.patientrecords.doctorapp.addpaitents.components.SupabaseConfig
 import io.github.jan.supabase.SupabaseClient
 import io.github.jan.supabase.postgrest.postgrest
 

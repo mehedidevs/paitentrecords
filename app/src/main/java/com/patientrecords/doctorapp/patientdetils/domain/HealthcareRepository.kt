@@ -6,8 +6,8 @@ import com.patientrecords.doctorapp.patientdetils.data.Medicine
 import com.patientrecords.doctorapp.patientdetils.data.Prescription
 import com.patientrecords.doctorapp.patientdetils.data.Visit
 import com.patientrecords.doctorapp.patientdetils.data.VisitWithPrescriptions
-import com.patientrecords.doctorapp.ui.screens.addpaitents.components.Patient
-import com.patientrecords.doctorapp.ui.screens.addpaitents.components.SupabaseConfig
+import com.patientrecords.doctorapp.addpaitents.components.Patient
+import com.patientrecords.doctorapp.addpaitents.components.SupabaseConfig
 import io.github.jan.supabase.SupabaseClient
 import io.github.jan.supabase.postgrest.from
 import io.github.jan.supabase.postgrest.query.Order

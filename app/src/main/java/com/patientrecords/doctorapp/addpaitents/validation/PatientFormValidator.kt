@@ -1,6 +1,6 @@
-package com.patientrecords.doctorapp.ui.screens.addpaitents.validation
+package com.patientrecords.doctorapp.addpaitents.validation
 
-import com.patientrecords.doctorapp.ui.screens.addpaitents.components.Gender
+import com.patientrecords.doctorapp.addpaitents.components.Gender
 
 /**
  * Validator for Patient form fields

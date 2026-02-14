@@ -1,7 +1,7 @@
-package com.patientrecords.doctorapp.ui.screens.addpaitents.validation
+package com.patientrecords.doctorapp.addpaitents.validation
 
 import android.net.Uri
-import com.patientrecords.doctorapp.ui.screens.addpaitents.components.Gender
+import com.patientrecords.doctorapp.addpaitents.components.Gender
 
 /**
  * Represents the current state of the Add Patient form

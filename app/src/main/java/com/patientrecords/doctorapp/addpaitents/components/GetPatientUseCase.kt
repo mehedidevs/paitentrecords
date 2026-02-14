@@ -1,4 +1,4 @@
-package com.patientrecords.doctorapp.ui.screens.addpaitents.components
+package com.patientrecords.doctorapp.addpaitents.components
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow

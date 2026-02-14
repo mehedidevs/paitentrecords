@@ -1,6 +1,7 @@
 package com.patientrecords.doctorapp.medicinelist
 
 
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -16,6 +17,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.patientrecords.doctorapp.patientdetils.data.Medicine
+import com.patientrecords.doctorapp.ui.components.AddMedicineFab
+import com.patientrecords.doctorapp.ui.components.HomeTopBar
+import com.patientrecords.doctorapp.ui.screens.SecondaryTonalButton
+import com.patientrecords.doctorapp.ui.theme.PrimaryGreen
 
 @Composable
 fun MedicineListScreen(
@@ -27,24 +33,24 @@ fun MedicineListScreen(
 
     val query = remember { mutableStateOf("") }
 
-    val filtered = viewModel.medicines.filter {
-        it.name.contains(query.value, true)
-    }
+    val filtered = viewModel.medicines
 
     Scaffold(
+        topBar = { HomeTopBar() },
         floatingActionButton = {
-            FloatingActionButton(onClick = onAddMedicineClick) { Text("+") }
+            AddMedicineFab(
+                onClick = {
+                    onAddMedicineClick()
+                }
+            )
         }
     ) { padding ->
 
-        Column(Modifier.padding(padding).padding(16.dp)) {
+        Column(
+            Modifier
+                .padding(padding)
+        ) {
 
-            OutlinedTextField(
-                value = query.value,
-                onValueChange = { query.value = it },
-                placeholder = { Text("Search medicine") },
-                modifier = Modifier.fillMaxWidth()
-            )
 
             Spacer(Modifier.height(16.dp))
 
@@ -55,6 +61,7 @@ fun MedicineListScreen(
                     MedicineListItem(it) {
                         onMedicineClick(it.id)
                     }
+                    Spacer(Modifier.height(8.dp))
                 }
             }
         }
@@ -64,13 +71,17 @@ fun MedicineListScreen(
 
 @Composable
 fun MedicineListItem(
-    medicine: MedicineUiModel,
+    medicine: Medicine,
     onClick: () -> Unit
 ) {
     Surface(
         modifier = Modifier
             .fillMaxWidth()
-            .clickable(onClick = onClick),
+            .padding(8.dp)
+            .clickable(onClick = onClick)
+            .border(
+                width = 1.dp, color = PrimaryGreen, shape = RoundedCornerShape(12.dp)
+            ),
         shape = RoundedCornerShape(12.dp),
         tonalElevation = 2.dp
     ) {
@@ -81,11 +92,7 @@ fun MedicineListItem(
                 fontSize = 16.sp
             )
             Text(
-                text = "${medicine.potency} • ${medicine.dosageForm}",
-                fontSize = 13.sp
-            )
-            Text(
-                text = "₹ ${medicine.defaultPrice}",
+                text = "${medicine.pricePerUnit}",
                 fontSize = 13.sp
             )
         }

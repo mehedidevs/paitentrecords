@@ -1,20 +1,17 @@
 package com.patientrecords.doctorapp.domain.medicine
 
 import com.patientrecords.doctorapp.addmedicine.MedicineDto
-import com.patientrecords.doctorapp.database.SupabaseProvider
 import com.patientrecords.doctorapp.patientdetils.data.Medicine
-import com.patientrecords.doctorapp.ui.screens.addmedicine.MedicineData
-import com.patientrecords.doctorapp.ui.screens.addpaitents.components.SupabaseConfig
+import com.patientrecords.doctorapp.addpaitents.components.SupabaseConfig
 import io.github.jan.supabase.SupabaseClient
 import io.github.jan.supabase.postgrest.postgrest
-import io.github.jan.supabase.postgrest.query.Returning
 
 class MedicineRepository {
     private val supabase: SupabaseClient = SupabaseConfig.client
     private val table =
         supabase.postgrest["medicines"]
 
-    suspend fun getAll(): List<MedicineDto> =
+    suspend fun getAll(): List<Medicine> =
         table.select().decodeList()
 
     suspend fun getById(id: String): MedicineDto =

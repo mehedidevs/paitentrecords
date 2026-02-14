@@ -1,8 +1,8 @@
-package com.patientrecords.doctorapp.ui.screens.addpaitents.components
+package com.patientrecords.doctorapp.addpaitents.components
 
 import android.content.Context
 import android.net.Uri
-import com.patientrecords.doctorapp.ui.screens.addpaitents.validation.PatientFormValidator
+import com.patientrecords.doctorapp.addpaitents.validation.PatientFormValidator
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 

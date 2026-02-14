@@ -30,8 +30,8 @@ import com.patientrecords.doctorapp.patientdetils.ui.components.HealthcareTopApp
 import com.patientrecords.doctorapp.patientdetils.ui.components.LoadingOverlay
 import com.patientrecords.doctorapp.patientdetils.ui.components.PrimaryButton
 import com.patientrecords.doctorapp.patientdetils.ui.components.SecondaryButton
-import com.patientrecords.doctorapp.ui.screens.addpaitents.components.Gender
-import com.patientrecords.doctorapp.ui.screens.addpaitents.components.Patient
+import com.patientrecords.doctorapp.addpaitents.components.Gender
+import com.patientrecords.doctorapp.addpaitents.components.Patient
 import com.patientrecords.doctorapp.ui.theme.BackgroundDark
 import com.patientrecords.doctorapp.ui.theme.HealthcarePatientTheme
 import com.patientrecords.doctorapp.ui.theme.PrimaryGreen

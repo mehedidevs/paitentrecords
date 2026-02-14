@@ -1,6 +1,6 @@
-package com.patientrecords.doctorapp.ui.screens.patientsearch
+package com.patientrecords.doctorapp.patientsearch
 
-import com.patientrecords.doctorapp.ui.screens.addpaitents.components.Patient
+import com.patientrecords.doctorapp.addpaitents.components.Patient
 
 sealed interface SearchPatientUiState {
 

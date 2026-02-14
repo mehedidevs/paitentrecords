@@ -36,7 +36,7 @@
 
 
     <!-- Add Patient Screen -->
-    <string name="add_new_patient">Add New Patient</string>
+<!--    <string name="add_new_patient">Add New Patient</string>
     <string name="add_photo">Add Photo</string>
     <string name="change_photo">Change Photo</string>
     <string name="full_name">Full name</string>
@@ -51,8 +51,24 @@
     <string name="address_placeholder">Street, City...</string>
     <string name="optional">Optional</string>
     <string name="required">*</string>
-    <string name="save_patient">Save Patient</string>
+    <string name="save_patient">Save Patient</string>-->
 
+    <string name="add_new_patient">নতুন রোগী যোগ করুন</string>
+    <string name="add_photo">ছবি যোগ করুন</string>
+    <string name="change_photo">ছবি পরিবর্তন করুন</string>
+    <string name="full_name">পূর্ণ নাম</string>
+    <string name="full_name_placeholder">যেমন: জন ডো</string>
+    <string name="mobile_number">মোবাইল নম্বর</string>
+    <string name="mobile_number_placeholder">১০ সংখ্যার নম্বর</string>
+    <string name="age">বয়স</string>
+    <string name="gender">লিঙ্গ</string>
+    <string name="male">পুরুষ</string>
+    <string name="female">মহিলা</string>
+    <string name="address">ঠিকানা</string>
+    <string name="address_placeholder">রাস্তা, শহর...</string>
+    <string name="optional">ঐচ্ছিক</string>
+    <string name="required">*</string>
+    <string name="save_patient">রোগী সংরক্ষণ করুন</string>
     <!-- Photo Picker -->
     <string name="select_photo">Select Photo</string>
     <string name="camera">Camera</string>
@@ -111,7 +127,7 @@
     <string name="add_prescription">প্রেসক্রিপশন যোগ করুন</string>
     <string name="prescription_for">%1$s এর জন্য প্রেসক্রিপশন</string>
     <string name="visit_date">ভিজিটের তারিখ: %1$s</string>
-    <string name="medicine">ওষুধ #%1$d</string>
+    <string name="medicine">ওষুধ:</string>
     <string name="medicine_name">ওষুধের নাম</string>
     <string name="potency">পোটেন্সি</string>
     <string name="select_potency">পোটেন্সি নির্বাচন করুন...</string>
@@ -127,5 +143,57 @@
     <string name="total_items">মোট আইটেম: %1$d</string>
     <string name="total">মোট: $%1$s</string>
     <string name="upload_prescription">প্রেসক্রিপশন আপলোড করুন</string>
+    <string name="patient_profile">রোগীর প্রোফাইল</string>
+    <string name="total_visits">মোট ভিজিট</string>
+    <string name="last_visit">শেষ ভিজিট</string>
+    <string name="new_visit">নতুন ভিজিট</string>
+    <string name="visit_history">ভিজিটের ইতিহাস</string>
+    <string name="view_all">সব দেখুন</string>
+    <string name="no_visit_history">আগের কোনো ভিজিটের তথ্য নেই</string>
+    <string name="start_by_creating_a_new_visit">একটি নতুন ভিজিট তৈরি করে শুরু করুন</string>
+    <string name="view_details">বিস্তারিত দেখুন</string>
+    <string name="cancel">বাতিল করুন</string>
+    <string name="date">তারিখ</string>
+    <string name="symptoms">লক্ষণ বা উপসর্গ</string>
+    <string name="enter_patient_complaints">রোগীর সমস্যাগুলো লিখুন...</string>
+    <string name="diagnosis_optional">রোগ নির্ণয় (ঐচ্ছিক)</string>
+    <string name="enter_diagnosis">রোগ নির্ণয় বা ডায়াগনোসিস লিখুন...</string>
+    <string name="add_medicine">ওষুধ যোগ করুন</string>
+    <string name="recent_patients">সাম্প্রতিক রোগী</string>
+    <string name="add_patient">রোগী যোগ করুন</string>
+    <string name="search_patient_by_name_or_mobile">নাম বা মোবাইল নম্বর দিয়ে খুঁজুন</string>
+    <string name="grand_total">সর্বমোট বিল</string>
+    <string name="discount">ছাড় (ডিসকাউন্ট)</string>
+    <string name="consultation_fee">কনসালটেশন ফি</string>
+    <string name="medicine_total">ওষুধের মোট দাম</string>
+    <string name="payment_details">পেমেন্টের বিবরণ</string>
+    <string name="add_new_medicine">নতুন ওষুধ যোগ করুন</string>
+
+
+<!--    <string name="patient_profile">Patient Profile</string>
+    <string name="total_visits">Total Visits</string>
+    <string name="last_visit">Last Visit</string>
+    <string name="new_visit">New Visit</string>
+    <string name="visit_history">Visit History</string>
+    <string name="view_all">View All</string>
+    <string name="no_visit_history">No visit history</string>
+    <string name="start_by_creating_a_new_visit">Start by creating a new visit</string>
+    <string name="view_details">View details</string>
+    <string name="cancel">Cancel</string>
+    <string name="date">Date</string>
+    <string name="symptoms">Symptoms</string>
+    <string name="enter_patient_complaints">Enter patient complaints...</string>
+    <string name="diagnosis_optional">Diagnosis (Optional)</string>
+    <string name="enter_diagnosis">Enter diagnosis...</string>
+    <string name="add_medicine">Add Medicine</string>
+    <string name="recent_patients">Recent Patients</string>
+    <string name="add_patient">Add Patient</string>
+    <string name="search_patient_by_name_or_mobile">Search patient by name or mobile</string>
+    <string name="grand_total">Grand Total</string>
+    <string name="discount">Discount</string>
+    <string name="consultation_fee">Consultation Fee</string>
+    <string name="medicine_total">Medicine Total</string>
+    <string name="payment_details">PAYMENT DETAILS</string>
+    <string name="add_new_medicine">Add New Medicine</string>-->
 
 </resources>

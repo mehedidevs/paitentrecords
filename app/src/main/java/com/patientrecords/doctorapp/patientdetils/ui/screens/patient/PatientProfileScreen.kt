@@ -12,10 +12,12 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.patientrecords.doctorapp.R
 import com.patientrecords.doctorapp.patientdetils.data.PatientProfileUiState
 import com.patientrecords.doctorapp.patientdetils.data.VisitHistoryItem
 import com.patientrecords.doctorapp.patientdetils.ui.components.HealthcareTopAppBar
@@ -23,12 +25,10 @@ import com.patientrecords.doctorapp.patientdetils.ui.components.InfoCard
 import com.patientrecords.doctorapp.patientdetils.ui.components.LoadingOverlay
 import com.patientrecords.doctorapp.patientdetils.ui.components.PrimaryButton
 import com.patientrecords.doctorapp.patientdetils.ui.components.ProfileAvatar
-import com.patientrecords.doctorapp.patientdetils.ui.components.SecondaryButton
 import com.patientrecords.doctorapp.patientdetils.ui.components.VisitHistoryCard
-import com.patientrecords.doctorapp.ui.screens.addpaitents.components.Gender
-import com.patientrecords.doctorapp.ui.screens.addpaitents.components.Patient
+import com.patientrecords.doctorapp.addpaitents.components.Gender
+import com.patientrecords.doctorapp.addpaitents.components.Patient
 import com.patientrecords.doctorapp.ui.theme.HealthcarePatientTheme
-import com.patientrecords.doctorapp.ui.theme.PrimaryGreen
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -47,13 +47,8 @@ fun PatientProfileScreen(
     Scaffold(
         topBar = {
             HealthcareTopAppBar(
-                title = "Patient Profile", onNavigateBack = onNavigateBack, actions = {
-                    IconButton(onClick = onEditProfile) {
-                        Icon(
-                            imageVector = Icons.Outlined.Edit, contentDescription = "Edit profile"
-                        )
-                    }
-                })
+                title = stringResource(R.string.patient_profile), onNavigateBack = onNavigateBack
+            )
         }) { paddingValues ->
         LazyColumn(
             modifier = modifier
@@ -76,13 +71,13 @@ fun PatientProfileScreen(
                     horizontalArrangement = Arrangement.spacedBy(12.dp)
                 ) {
                     InfoCard(
-                        title = "Total Visits",
+                        title = stringResource(R.string.total_visits),
                         value = uiState.totalVisits.toString(),
                         icon = Icons.Outlined.History,
                         modifier = Modifier.weight(1f)
                     )
                     InfoCard(
-                        title = "Last Visit",
+                        title = stringResource(R.string.last_visit),
                         value = uiState.lastVisitDate ?: "N/A",
                         icon = Icons.Outlined.CalendarMonth,
                         modifier = Modifier.weight(1f)
@@ -96,14 +91,16 @@ fun PatientProfileScreen(
                     verticalArrangement = Arrangement.spacedBy(12.dp)
                 ) {
                     PrimaryButton(
-                        text = "New Visit", onClick = onNewVisit, icon = Icons.Filled.Add
+                        text = stringResource(R.string.new_visit),
+                        onClick = onNewVisit,
+                        icon = Icons.Filled.Add
                     )
 
-                /*    SecondaryButton(
-                        text = "Doctor Notes",
-                        onClick = onDoctorNotes,
-                        icon = Icons.Outlined.Description
-                    )*/
+                    /*    SecondaryButton(
+                            text = "Doctor Notes",
+                            onClick = onDoctorNotes,
+                            icon = Icons.Outlined.Description
+                        )*/
                 }
             }
 
@@ -115,15 +112,12 @@ fun PatientProfileScreen(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Text(
-                        text = "Visit History", style = MaterialTheme.typography.titleMedium.copy(
+                        text = stringResource(R.string.visit_history),
+                        style = MaterialTheme.typography.titleMedium.copy(
                             fontWeight = FontWeight.SemiBold
                         )
                     )
-                    TextButton(onClick = onViewAllHistory) {
-                        Text(
-                            text = "View All", color = PrimaryGreen
-                        )
-                    }
+
                 }
             }
 
@@ -182,8 +176,8 @@ private fun ProfileHeader(
         // Age & Gender
         Text(
             text = "${patient?.age ?: 0} Years • ${
-            patient?.gender?.name?.lowercase()?.replaceFirstChar { it.uppercase() } ?: "Unknown"
-        }",
+                patient?.gender?.name?.lowercase()?.replaceFirstChar { it.uppercase() } ?: "Unknown"
+            }",
             style = MaterialTheme.typography.bodyLarge,
             color = MaterialTheme.colorScheme.onSurfaceVariant)
 
@@ -232,12 +226,12 @@ private fun EmptyVisitHistory() {
         )
         Spacer(modifier = Modifier.height(16.dp))
         Text(
-            text = "No visit history",
+            text = stringResource(R.string.no_visit_history),
             style = MaterialTheme.typography.titleMedium,
             color = MaterialTheme.colorScheme.onSurfaceVariant
         )
         Text(
-            text = "Start by creating a new visit",
+            text = stringResource(R.string.start_by_creating_a_new_visit),
             style = MaterialTheme.typography.bodyMedium,
             color = MaterialTheme.colorScheme.outline,
             textAlign = TextAlign.Center
@@ -253,32 +247,32 @@ private fun PatientProfileScreenPreview() {
     HealthcarePatientTheme {
         PatientProfileScreen(
             uiState = PatientProfileUiState(
-            patient = Patient(
-                id = "1",
-                fullName = "Jane Doe",
-                age = 34,
-                gender = Gender.FEMALE,
-                mobileNumber = "+1 (555) 123-4567",
-                photoUrl = null
-            ), totalVisits = 12, lastVisitDate = "Oct 24, 2023", visitHistory = listOf(
-                VisitHistoryItem(
+                patient = Patient(
                     id = "1",
-                    date = "OCT 24, 2023",
-                    diagnosis = "Migraine - Follow up",
-                    prescribedMedicine = "Natrum Mur 200"
-                ), VisitHistoryItem(
-                    id = "2",
-                    date = "SEP 12, 2023",
-                    diagnosis = "Chronic Headache",
-                    prescribedMedicine = "Belladonna 30"
-                ), VisitHistoryItem(
-                    id = "3",
-                    date = "AUG 05, 2023",
-                    diagnosis = "General Checkup",
-                    prescribedMedicine = null
+                    fullName = "Jane Doe",
+                    age = 34,
+                    gender = Gender.FEMALE,
+                    mobileNumber = "+1 (555) 123-4567",
+                    photoUrl = null
+                ), totalVisits = 12, lastVisitDate = "Oct 24, 2023", visitHistory = listOf(
+                    VisitHistoryItem(
+                        id = "1",
+                        date = "OCT 24, 2023",
+                        diagnosis = "Migraine - Follow up",
+                        prescribedMedicine = "Natrum Mur 200"
+                    ), VisitHistoryItem(
+                        id = "2",
+                        date = "SEP 12, 2023",
+                        diagnosis = "Chronic Headache",
+                        prescribedMedicine = "Belladonna 30"
+                    ), VisitHistoryItem(
+                        id = "3",
+                        date = "AUG 05, 2023",
+                        diagnosis = "General Checkup",
+                        prescribedMedicine = null
+                    )
                 )
-            )
-        ),
+            ),
             onNavigateBack = {},
             onEditProfile = {},
             onNewVisit = {},
@@ -294,21 +288,21 @@ private fun PatientProfileScreenDarkPreview() {
     HealthcarePatientTheme(darkTheme = true) {
         PatientProfileScreen(
             uiState = PatientProfileUiState(
-            patient = Patient(
-                id = "1",
-                fullName = "Jane Doe",
-                age = 34,
-                gender = Gender.FEMALE,
-                mobileNumber = "+1 (555) 123-4567"
-            ), totalVisits = 12, lastVisitDate = "Oct 24, 2023", visitHistory = listOf(
-                VisitHistoryItem(
+                patient = Patient(
                     id = "1",
-                    date = "OCT 24, 2023",
-                    diagnosis = "Migraine - Follow up",
-                    prescribedMedicine = "Natrum Mur 200"
+                    fullName = "Jane Doe",
+                    age = 34,
+                    gender = Gender.FEMALE,
+                    mobileNumber = "+1 (555) 123-4567"
+                ), totalVisits = 12, lastVisitDate = "Oct 24, 2023", visitHistory = listOf(
+                    VisitHistoryItem(
+                        id = "1",
+                        date = "OCT 24, 2023",
+                        diagnosis = "Migraine - Follow up",
+                        prescribedMedicine = "Natrum Mur 200"
+                    )
                 )
-            )
-        ),
+            ),
             onNavigateBack = {},
             onEditProfile = {},
             onNewVisit = {},
@@ -324,14 +318,14 @@ private fun PatientProfileEmptyPreview() {
     HealthcarePatientTheme {
         PatientProfileScreen(
             uiState = PatientProfileUiState(
-            patient = Patient(
-                id = "1",
-                fullName = "New Patient",
-                age = 28,
-                gender = Gender.MALE,
-                mobileNumber = "+1 (555) 999-8888"
-            ), totalVisits = 0, lastVisitDate = null, visitHistory = emptyList()
-        ),
+                patient = Patient(
+                    id = "1",
+                    fullName = "New Patient",
+                    age = 28,
+                    gender = Gender.MALE,
+                    mobileNumber = "+1 (555) 999-8888"
+                ), totalVisits = 0, lastVisitDate = null, visitHistory = emptyList()
+            ),
             onNavigateBack = {},
             onEditProfile = {},
             onNewVisit = {},

@@ -16,22 +16,20 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
+import com.patientrecords.doctorapp.R
 import com.patientrecords.doctorapp.patientdetils.data.Prescription
-import com.patientrecords.doctorapp.patientdetils.ui.components.HealthcareTextField
 import com.patientrecords.doctorapp.patientdetils.ui.components.HealthcareTopAppBar
 import com.patientrecords.doctorapp.patientdetils.ui.components.LoadingOverlay
-import com.patientrecords.doctorapp.ui.screens.addpaitents.components.Gender
-import com.patientrecords.doctorapp.ui.screens.addpaitents.components.Patient
+import com.patientrecords.doctorapp.addpaitents.components.Gender
+import com.patientrecords.doctorapp.addpaitents.components.Patient
 import com.patientrecords.doctorapp.ui.theme.*
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -453,7 +451,7 @@ private fun PaymentDetailsCard(
         ) {
             // Header
             Text(
-                text = "PAYMENT DETAILS",
+                text = stringResource(R.string.payment_details),
                 style = MaterialTheme.typography.labelMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                 letterSpacing = 1.sp
@@ -463,9 +461,9 @@ private fun PaymentDetailsCard(
 
             // Medicine Total
             PaymentRow(
-                label = "Medicine Total",
+                label = stringResource(R.string.medicine_total),
                 amount = medicineTotal,
-                currencySymbol = "₹"
+                currencySymbol = "tk"
             )
 
             Spacer(modifier = Modifier.height(12.dp))
@@ -478,7 +476,7 @@ private fun PaymentDetailsCard(
             ) {
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Text(
-                        text = "Consultation Fee",
+                        text = stringResource(R.string.consultation_fee),
                         style = MaterialTheme.typography.bodyLarge
                     )
                     Spacer(modifier = Modifier.width(8.dp))
@@ -505,7 +503,7 @@ private fun PaymentDetailsCard(
             ) {
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Text(
-                        text = "Discount",
+                        text = stringResource(R.string.discount),
                         style = MaterialTheme.typography.bodyLarge
                     )
                     Spacer(modifier = Modifier.width(8.dp))
@@ -530,7 +528,7 @@ private fun PaymentDetailsCard(
             Surface(
                 modifier = Modifier.fillMaxWidth(),
                 shape = RoundedCornerShape(12.dp),
-                color = PrimaryGreenContainerDark
+                color = PrimaryGreen.copy(alpha = .25f)
             ) {
                 Row(
                     modifier = Modifier
@@ -541,7 +539,7 @@ private fun PaymentDetailsCard(
                 ) {
                     Column {
                         Text(
-                            text = "Grand Total",
+                            text = stringResource(R.string.grand_total),
                             style = MaterialTheme.typography.titleMedium.copy(
                                 fontWeight = FontWeight.SemiBold
                             )
@@ -549,16 +547,11 @@ private fun PaymentDetailsCard(
                     }
                     Column(horizontalAlignment = Alignment.End) {
                         Text(
-                            text = "₹${grandTotal.toInt()}",
+                            text = "${grandTotal.toInt()}",
                             style = MaterialTheme.typography.headlineMedium.copy(
                                 fontWeight = FontWeight.Bold
                             ),
-                            color = TextPrimaryDark
-                        )
-                        Text(
-                            text = "Includes all taxes",
-                            style = MaterialTheme.typography.bodySmall,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                            color = TextDark
                         )
                     }
                 }

@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.patientrecords.doctorapp.patientdetils.data.Prescription
 import com.patientrecords.doctorapp.patientdetils.domain.HealthcareRepository
-import com.patientrecords.doctorapp.ui.screens.addpaitents.components.Patient
+import com.patientrecords.doctorapp.addpaitents.components.Patient
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow

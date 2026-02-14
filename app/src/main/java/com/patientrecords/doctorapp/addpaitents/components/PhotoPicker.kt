@@ -1,4 +1,4 @@
-package com.patientrecords.doctorapp.ui.screens.addpaitents.components
+package com.patientrecords.doctorapp.addpaitents.components
 
 import android.Manifest
 import android.content.Context
@@ -12,7 +12,6 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.outlined.CameraAlt
 import androidx.compose.material.icons.outlined.Image

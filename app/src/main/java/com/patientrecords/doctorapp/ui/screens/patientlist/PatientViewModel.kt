@@ -3,8 +3,8 @@ package com.patientrecords.doctorapp.ui.screens.patientlist
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.patientrecords.doctorapp.ui.screens.addpaitents.components.GetPatientResult
-import com.patientrecords.doctorapp.ui.screens.addpaitents.components.GetPatientUseCase
+import com.patientrecords.doctorapp.addpaitents.components.GetPatientResult
+import com.patientrecords.doctorapp.addpaitents.components.GetPatientUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow

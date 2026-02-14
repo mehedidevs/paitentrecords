@@ -1,4 +1,4 @@
-package com.patientrecords.doctorapp.ui.screens.patientsearch
+package com.patientrecords.doctorapp.patientsearch
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -9,7 +9,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -31,7 +30,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import com.patientrecords.doctorapp.ui.components.PatientAvatar
-import com.patientrecords.doctorapp.ui.screens.addpaitents.components.Patient
+import com.patientrecords.doctorapp.addpaitents.components.Patient
+import com.patientrecords.doctorapp.ui.screens.PatientListItem
 import io.ktor.websocket.Frame
 import org.koin.androidx.compose.koinViewModel
 
@@ -134,25 +134,14 @@ private fun PatientList(
 ) {
     LazyColumn {
         items(patients) { patient ->
-            PatientSearchItem(patient, onClick)
+            PatientListItem(
+                patient = patient,
+                onClick = onClick
+            )
         }
     }
 }
 
-@Composable
-private fun PatientSearchItem(
-    patient: Patient,
-    onClick: (Patient) -> Unit
-) {
-    ListItem(
-        headlineContent = { Frame.Text(patient.fullName) },
-        supportingContent = { Frame.Text(patient.mobileNumber) },
-        leadingContent = {
-            PatientAvatar(patient)
-        },
-        modifier = Modifier.clickable { onClick(patient) }
-    )
-}
 
 @Composable
 fun EmptyHint(message: String) {

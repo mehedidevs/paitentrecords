@@ -9,9 +9,11 @@ import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.patientrecords.doctorapp.R
 import com.patientrecords.doctorapp.patientdetils.data.NewVisitUiState
 import com.patientrecords.doctorapp.patientdetils.ui.components.DatePickerField
 import com.patientrecords.doctorapp.patientdetils.ui.components.HealthcareTextField
@@ -27,7 +29,6 @@ import java.time.format.DateTimeFormatter
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun NewVisitScreen(
-
     uiState: NewVisitUiState,
     onNavigateBack: () -> Unit,
     onSave: () -> Unit,
@@ -45,23 +46,16 @@ fun NewVisitScreen(
             CenterAlignedTopAppBar(
                 title = {
                     Text(
-                        text = "New Visit", style = MaterialTheme.typography.titleMedium.copy(
+                        text = stringResource(R.string.new_visit),
+                        style = MaterialTheme.typography.titleMedium.copy(
                             fontWeight = FontWeight.SemiBold
                         )
                     )
                 }, navigationIcon = {
                     TextButton(onClick = onNavigateBack) {
                         Text(
-                            text = "Cancel", color = MaterialTheme.colorScheme.onSurfaceVariant
-                        )
-                    }
-                }, actions = {
-                    TextButton(
-                        onClick = onSave, enabled = uiState.symptoms.isNotBlank()
-                    ) {
-                        Text(
-                            text = "Save", color = if (uiState.symptoms.isNotBlank()) PrimaryGreen
-                            else MaterialTheme.colorScheme.outline, fontWeight = FontWeight.SemiBold
+                            text = stringResource(R.string.cancel),
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
                         )
                     }
                 }, colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
@@ -95,15 +89,15 @@ fun NewVisitScreen(
                             // Handle parsing error
                         }
                     },
-                    label = "Date"
+                    label = stringResource(R.string.date)
                 )
 
                 // Symptoms Field
                 HealthcareTextField(
                     value = uiState.symptoms,
                     onValueChange = onSymptomsChange,
-                    label = "Symptoms",
-                    placeholder = "Enter patient complaints...",
+                    label = stringResource(R.string.symptoms),
+                    placeholder = stringResource(R.string.enter_patient_complaints),
                     singleLine = false,
                     minLines = 5,
                     maxLines = 8
@@ -113,8 +107,8 @@ fun NewVisitScreen(
                 HealthcareTextField(
                     value = uiState.diagnosis,
                     onValueChange = onDiagnosisChange,
-                    label = "Diagnosis (Optional)",
-                    placeholder = "Enter diagnosis..."
+                    label = stringResource(R.string.diagnosis_optional),
+                    placeholder = stringResource(R.string.enter_diagnosis)
                 )
             }
 

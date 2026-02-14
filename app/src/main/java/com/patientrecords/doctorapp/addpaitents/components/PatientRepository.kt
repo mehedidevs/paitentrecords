@@ -1,11 +1,9 @@
-package com.patientrecords.doctorapp.ui.screens.addpaitents.components
+package com.patientrecords.doctorapp.addpaitents.components
 
 import android.content.Context
 import android.net.Uri
-import android.service.autofill.Validators.or
 import com.patientrecords.doctorapp.addmedicine.MedicineDto
-import com.patientrecords.doctorapp.database.SupabaseProvider
-import com.patientrecords.doctorapp.ui.screens.addmedicine.MedicineData
+import com.patientrecords.doctorapp.addmedicine.MedicineData
 import io.github.jan.supabase.postgrest.postgrest
 import io.github.jan.supabase.postgrest.query.Order
 import io.github.jan.supabase.storage.storage

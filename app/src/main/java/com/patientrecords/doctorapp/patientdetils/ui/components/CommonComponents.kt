@@ -16,6 +16,7 @@ import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.ArrowForward
 import androidx.compose.material.icons.automirrored.filled.KeyboardArrowLeft
 import androidx.compose.material.icons.filled.*
 import androidx.compose.material.icons.outlined.*
@@ -28,12 +29,14 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
+import com.patientrecords.doctorapp.R
 import com.patientrecords.doctorapp.ui.theme.BackgroundLight
 import com.patientrecords.doctorapp.ui.theme.BorderDark
 import com.patientrecords.doctorapp.ui.theme.ErrorRed
@@ -55,24 +58,24 @@ fun HealthcareTopAppBar(
 ) {
     CenterAlignedTopAppBar(
         title = {
-        Text(
-            text = title, style = MaterialTheme.typography.titleMedium.copy(
-                fontWeight = FontWeight.SemiBold
-            )
-        )
-    }, navigationIcon = {
-        if (onNavigateBack != null) {
-            IconButton(onClick = onNavigateBack) {
-                Icon(
-                    imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                    contentDescription = "Back"
+            Text(
+                text = title, style = MaterialTheme.typography.titleMedium.copy(
+                    fontWeight = FontWeight.SemiBold
                 )
+            )
+        }, navigationIcon = {
+            if (onNavigateBack != null) {
+                IconButton(onClick = onNavigateBack) {
+                    Icon(
+                        imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                        contentDescription = "Back"
+                    )
+                }
             }
-        }
-    }, actions = actions, colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
-        containerColor = MaterialTheme.colorScheme.surface,
-        titleContentColor = MaterialTheme.colorScheme.onSurface
-    ), modifier = modifier
+        }, actions = actions, colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
+            containerColor = MaterialTheme.colorScheme.surface,
+            titleContentColor = MaterialTheme.colorScheme.onSurface
+        ), modifier = modifier
     )
 }
 
@@ -302,7 +305,7 @@ fun DatePickerField(
                 .height(56.dp)
                 .clickable { showDatePicker = true },
             shape = RoundedCornerShape(12.dp),
-            color = BorderDark,
+            color = PrimaryGreen.copy(alpha = 0.1f),
             border = ButtonDefaults.outlinedButtonBorder.copy(width = 1.dp)
         ) {
             Row(
@@ -541,7 +544,7 @@ fun VisitHistoryCard(
                 )
                 Spacer(modifier = Modifier.height(4.dp))
                 Text(
-                    text = diagnosis,
+                    text = diagnosis.ifEmpty { "diagnosis not found" },
                     style = MaterialTheme.typography.titleMedium.copy(
                         fontWeight = FontWeight.SemiBold
                     ),
@@ -549,21 +552,21 @@ fun VisitHistoryCard(
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis
                 )
-                if (prescribedMedicine != null) {
-                    Spacer(modifier = Modifier.height(2.dp))
-                    Text(
-                        text = "Prescribed: $prescribedMedicine",
-                        style = MaterialTheme.typography.bodyMedium,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
-                        maxLines = 1,
-                        overflow = TextOverflow.Ellipsis
-                    )
-                }
+
+                Spacer(modifier = Modifier.height(2.dp))
+                Text(
+                    text = "Prescribed: ${prescribedMedicine?.ifEmpty { "prescribedMedicine No found" }}",
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
+                )
+
             }
 
             Icon(
-                imageVector = Icons.AutoMirrored.Filled.KeyboardArrowLeft,
-                contentDescription = "View details",
+                imageVector = Icons.AutoMirrored.Filled.ArrowForward,
+                contentDescription = stringResource(R.string.view_details),
                 tint = MaterialTheme.colorScheme.onSurfaceVariant
             )
         }

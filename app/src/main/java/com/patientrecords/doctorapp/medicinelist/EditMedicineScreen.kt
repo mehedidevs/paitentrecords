@@ -7,7 +7,6 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.patientrecords.doctorapp.ui.screens.addmedicine.*
 import androidx.compose.foundation.background
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -15,6 +14,12 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.graphics.Color
+import com.patientrecords.doctorapp.addmedicine.DefaultPriceField
+import com.patientrecords.doctorapp.addmedicine.DosageFormDropdown
+import com.patientrecords.doctorapp.addmedicine.DurationUnitDropdown
+import com.patientrecords.doctorapp.addmedicine.MedicineNameField
+import com.patientrecords.doctorapp.addmedicine.PotencySection
+import com.patientrecords.doctorapp.addmedicine.SaveMedicineButton
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

@@ -1,4 +1,4 @@
-package com.patientrecords.doctorapp.ui.screens.addpaitents
+package com.patientrecords.doctorapp.addpaitents
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -36,20 +36,22 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.patientrecords.doctorapp.ui.screens.addpaitents.components.Gender
-import com.patientrecords.doctorapp.ui.screens.addpaitents.validation.PatientFormEvent
-import com.patientrecords.doctorapp.ui.screens.addpaitents.validation.PatientFormState
-import com.patientrecords.doctorapp.ui.screens.addpaitents.components.AddressField
-import com.patientrecords.doctorapp.ui.screens.addpaitents.components.AgeInputField
-import com.patientrecords.doctorapp.ui.screens.addpaitents.components.FormTextField
-import com.patientrecords.doctorapp.ui.screens.addpaitents.components.GenderSelector
-import com.patientrecords.doctorapp.ui.screens.addpaitents.components.PhotoPicker
-import com.patientrecords.doctorapp.ui.screens.addpaitents.components.PrimaryButton
+import com.patientrecords.doctorapp.R
+import com.patientrecords.doctorapp.addpaitents.components.Gender
+import com.patientrecords.doctorapp.addpaitents.validation.PatientFormEvent
+import com.patientrecords.doctorapp.addpaitents.validation.PatientFormState
+import com.patientrecords.doctorapp.addpaitents.components.AddressField
+import com.patientrecords.doctorapp.addpaitents.components.AgeInputField
+import com.patientrecords.doctorapp.addpaitents.components.FormTextField
+import com.patientrecords.doctorapp.addpaitents.components.GenderSelector
+import com.patientrecords.doctorapp.addpaitents.components.PhotoPicker
+import com.patientrecords.doctorapp.addpaitents.components.PrimaryButton
 import com.patientrecords.doctorapp.ui.theme.HealthcarePatientTheme
 import com.patientrecords.doctorapp.ui.theme.PrimaryGreen
 import kotlinx.coroutines.flow.collectLatest
@@ -99,7 +101,7 @@ fun AddPatientScreen(
             TopAppBar(
                 title = {
                     Text(
-                        text = "Add New Patient",
+                        text = stringResource(R.string.add_new_patient),
                         style = MaterialTheme.typography.titleMedium,
                         fontWeight = FontWeight.SemiBold
                     )
@@ -175,7 +177,7 @@ private fun AddPatientContent(
             FormTextField(
                 value = formState.fullName,
                 onValueChange = { onEvent(PatientFormEvent.FullNameChanged(it)) },
-                label = "Full name",
+                label = stringResource(R.string.full_name),
                 placeholder = "e.g. John Doe",
                 error = formState.fullNameError,
                 keyboardType = KeyboardType.Text,
@@ -189,7 +191,7 @@ private fun AddPatientContent(
             FormTextField(
                 value = formState.mobileNumber,
                 onValueChange = { onEvent(PatientFormEvent.MobileNumberChanged(it)) },
-                label = "Mobile number",
+                label = stringResource(R.string.mobile_number),
                 placeholder = "10 digit number",
                 isRequired = true,
                 error = formState.mobileNumberError,
@@ -243,7 +245,7 @@ private fun AddPatientContent(
                 .padding(20.dp)
         ) {
             PrimaryButton(
-                text = "Save Patient",
+                text = stringResource(R.string.save_patient),
                 onClick = onSubmit,
                 isLoading = formState.isSubmitting,
                 enabled = !formState.isSubmitting,

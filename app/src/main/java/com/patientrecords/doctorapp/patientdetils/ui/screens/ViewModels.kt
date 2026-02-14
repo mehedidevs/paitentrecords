@@ -26,6 +26,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
+import java.util.UUID
 
 // ==================== Patient Profile ViewModel ====================
 
@@ -157,7 +158,7 @@ class NewVisitViewModel(
                     Prescription(
                         visitId = "", // Will be set by repository
                         medicineId = form.medicineId ?: "",
-                        medicineName = form.medicineName,
+                        medicineName = form?.medicineName ?: "",
                         potency = form.potency,
                         dosage = form.dosage,
                         frequency = form.frequency,
@@ -230,8 +231,8 @@ class AddPrescriptionViewModel(
                 .map { form ->
                     Prescription(
                         visitId = "",
-                        medicineId = form.medicineId!!,
-                        medicineName = form.medicineName,
+                        medicineId = form.medicineId ?: "ManualinputMedicine_${UUID.randomUUID()}",
+                        medicineName = form.medicineName ?: _uiState.value.queryName ?: "NO NAME",
                         potency = form.potency.ifBlank { "NA" },
                         dosage = form.dosage.ifBlank { "As directed" },   // 🔥 DEFAULT
                         frequency = form.frequency.ifBlank { "Once daily" }, // 🔥 DEFAULT
@@ -262,8 +263,10 @@ class AddPrescriptionViewModel(
     // 🔹 SEARCH MEDICINE (SAFE)
     // =========================
     fun searchMedicines(index: Int, query: String) {
+
         updatePrescription(index) { p ->
             p.copy(
+                typedName = query,   // ✅ SAVE TYPED NAME
                 searchState = p.searchState.copy(
                     query = query,
                     isSearching = true
@@ -302,6 +305,7 @@ class AddPrescriptionViewModel(
         }
     }
 
+
     // =========================
     // 🔹 SELECT MEDICINE (FIXED)
     // =========================
@@ -311,7 +315,6 @@ class AddPrescriptionViewModel(
             val updated = p.copy(
                 medicineId = medicine.id,
                 medicineName = medicine.name,
-                potency = medicine.defaultPotency.orEmpty(),
                 price = medicine.pricePerUnit,
                 searchState = p.searchState.copy(
                     query = medicine.name,
@@ -374,15 +377,27 @@ class AddPrescriptionViewModel(
     // =========================
     fun markAsComplete(index: Int) {
         updatePrescription(index) { p ->
+
+            val finalName =
+                if (!p.medicineName.isNullOrBlank())
+                    p.medicineName
+                else
+                    p.typedName   // ✅ fallback when no search result
+
             val isComplete =
-                p.medicineName.isNotBlank() &&
+                finalName.isNotBlank() /*&&
                         p.potency.isNotBlank() &&
                         p.dosage.isNotBlank() &&
-                        p.frequency.isNotBlank()
+                        p.frequency.isNotBlank()*/
 
-            p.copy(isComplete = isComplete)
+            p.copy(
+                medicineName = finalName,
+                medicineId = p.medicineId, // may be null → manual entry
+                isComplete = isComplete
+            )
         }
     }
+
 
     // =========================
     // 🔹 INTERNAL HELPERS

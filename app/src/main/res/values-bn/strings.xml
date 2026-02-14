@@ -86,9 +86,9 @@
     <string name="cd_phone_icon">ফোন আইকন</string>
 
     <string name="add_prescription">প্রেসক্রিপশন যোগ করুন</string>
-    <string name="prescription_for">%1$s এর জন্য প্রেসক্রিপশন</string>
-    <string name="visit_date">ভিজিটের তারিখ: %1$s</string>
-    <string name="medicine">ওষুধ #%1$d</string>
+    <string name="prescription_for">এর জন্য প্রেসক্রিপশন</string>
+    <string name="visit_date">ভিজিটের তারিখ:</string>
+    <string name="medicine">ওষুধ:</string>
     <string name="medicine_name">ওষুধের নাম</string>
     <string name="potency">পোটেন্সি</string>
     <string name="select_potency">পোটেন্সি নির্বাচন করুন...</string>
@@ -101,8 +101,8 @@
     <string name="ok">ঠিক আছে</string>
     <string name="duration">সময়কাল</string>
     <string name="add_another_medicine">আরেকটি ওষুধ যোগ করুন</string>
-    <string name="total_items">মোট আইটেম: %1$d</string>
-    <string name="total">মোট: $%1$s</string>
+    <string name="total_items">মোট আইটেম:</string>
+    <string name="total">মোট:</string>
     <string name="upload_prescription">প্রেসক্রিপশন আপলোড করুন</string>
 
 </resources>

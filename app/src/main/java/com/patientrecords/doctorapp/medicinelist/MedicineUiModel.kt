@@ -1,7 +1,6 @@
 package com.patientrecords.doctorapp.medicinelist
 
 import com.patientrecords.doctorapp.addmedicine.MedicineDto
-import com.patientrecords.doctorapp.ui.screens.addmedicine.MedicineData
 
 data class MedicineUiModel(
     val id: String,

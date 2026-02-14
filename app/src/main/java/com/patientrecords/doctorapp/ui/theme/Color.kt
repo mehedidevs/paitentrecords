@@ -89,6 +89,7 @@ val CardBorderDark = Color(0xFF3A3A3A)
 // Text Colors
 val TextPrimaryLight = Color(0xFF1A1A1A)
 val TextPrimaryDark = Color(0xFFFFFFFF)
+val TextDark = Color(0xFF121212)
 val TextSecondaryLight = Color(0xFF666666)
 val TextSecondaryDark = Color(0xFFB3B3B3)
 val TextTertiaryLight = Color(0xFF999999)

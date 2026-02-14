@@ -50,6 +50,7 @@ import kotlinx.coroutines.launch
 data class AddPrescriptionUiState(
     val patientId: String = "",
     val patientName: String = "",
+    val queryName: String? = null,
     val visitDate: String = "",
     val symptoms: String = "",
     val diagnosis: String = "",
@@ -97,6 +98,7 @@ fun AddPrescriptionScreen(
                     viewModel?.uploadPrescription(
                         onSuccess = { msg ->
                             Log.i("uploadPrescription", "msg:$msg ")
+                            onNavigateBack()
 
                         },
                         onError = { errMsg ->
@@ -144,7 +146,6 @@ fun AddPrescriptionScreen(
                     CompletedMedicineCard(
                         index = index + 1,
                         prescription = prescription,
-                        onEdit = { onEditDetails(index) },
                         onRemove = { onRemoveMedicine(index) }
                     )
                 } else {
@@ -253,11 +254,12 @@ private fun MedicineFormCard(
             Box {
 
                 HealthcareTextField(
-                    value = prescription.searchState.query,   // SINGLE SOURCE OF TRUTH
+                    value = prescription.searchState.query,
 
                     onValueChange = { query ->
                         showDropdown = query.isNotEmpty()
-                        onMedicineSearch(query)   // let ViewModel debounce
+                        onMedicineSearch(query)
+
                     },
 
                     label = stringResource(R.string.medicine_name),
@@ -294,7 +296,7 @@ private fun MedicineFormCard(
 
                     prescription.searchState.results.forEach { medicine ->
                         DropdownMenuItem(
-                            text = { Text("${medicine.name} ${medicine.pricePerUnit}") },
+                            text = { Text("${medicine.name}, tk:${medicine.pricePerUnit}") },
                             onClick = {
                                 onMedicineSelected(medicine)
                                 showDropdown = false
@@ -327,70 +329,28 @@ private fun MedicineFormCard(
                 )
             }
 
-            // ---------- DAYS + PRICE ----------
-            Row(
+            // ----------PRICE ----------
+            HealthcareTextField(
+                value =
+                    if (prescription.price > 0)
+                        " ${prescription.price}"
+                    else
+                        "0.00",
+
+                onValueChange = { value ->
+                    val price =
+                        value.replace("$", "")
+                            .trim()
+                            .toDoubleOrNull() ?: 0.0
+
+                    onPriceChange(price)
+                },
+
+                label = stringResource(R.string.price),
                 modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(12.dp)
-            ) {
-
-                Column(modifier = Modifier.weight(1f)) {
-                    Text(
-                        text = stringResource(R.string.days),
-                        style = MaterialTheme.typography.labelLarge,
-                        color = MaterialTheme.colorScheme.onSurface,
-                        modifier = Modifier.padding(bottom = 8.dp)
-                    )
-
-                    Surface(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .height(56.dp),
-                        shape = RoundedCornerShape(12.dp),
-                        color = InputBackgroundLight,
-                        border = ButtonDefaults.outlinedButtonBorder.copy(width = 1.dp)
-                    ) {
-                        Row(
-                            modifier = Modifier
-                                .fillMaxSize()
-                                .padding(horizontal = 16.dp),
-                            verticalAlignment = Alignment.CenterVertically,
-                            horizontalArrangement = Arrangement.SpaceBetween
-                        ) {
-                            Text(
-                                text = prescription.durationDays.toString(),
-                                style = MaterialTheme.typography.bodyLarge
-                            )
-                            Text(
-                                text = stringResource(R.string.days),
-                                style = MaterialTheme.typography.bodyMedium,
-                                color = MaterialTheme.colorScheme.onSurfaceVariant
-                            )
-                        }
-                    }
-                }
-
-                HealthcareTextField(
-                    value =
-                        if (prescription.price > 0)
-                            " ${prescription.price}"
-                        else
-                            "0.00",
-
-                    onValueChange = { value ->
-                        val price =
-                            value.replace("$", "")
-                                .trim()
-                                .toDoubleOrNull() ?: 0.0
-
-                        onPriceChange(price)
-                    },
-
-                    label = stringResource(R.string.price),
-                    modifier = Modifier.weight(1f),
-                    keyboardOptions =
-                        KeyboardOptions(keyboardType = KeyboardType.Decimal)
-                )
-            }
+                keyboardOptions =
+                    KeyboardOptions(keyboardType = KeyboardType.Decimal)
+            )
 
             Button(
                 onClick = onCompleted,
@@ -409,7 +369,6 @@ private fun MedicineFormCard(
 private fun CompletedMedicineCard(
     index: Int,
     prescription: PrescriptionFormItem,
-    onEdit: () -> Unit,
     onRemove: () -> Unit
 ) {
     var expanded by remember { mutableStateOf(false) }
@@ -460,7 +419,7 @@ private fun CompletedMedicineCard(
                     Spacer(Modifier.width(8.dp))
 
                     Text(
-                        text = prescription.medicineName,
+                        text = prescription.medicineName ?: "",
                         style = MaterialTheme.typography.titleMedium.copy(
                             fontWeight = FontWeight.SemiBold
                         )
@@ -498,7 +457,7 @@ private fun CompletedMedicineCard(
                             color = MaterialTheme.colorScheme.onSurfaceVariant
                         )
                         Text(
-                            text = prescription.medicineName,
+                            text = prescription.medicineName ?: "",
                             style = MaterialTheme.typography.titleMedium.copy(
                                 fontWeight = FontWeight.SemiBold
                             )
@@ -514,34 +473,18 @@ private fun CompletedMedicineCard(
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
 
-                    Column(
-                        modifier = Modifier
-                    ) {
-                        DetailColumn(
-                            label = stringResource(R.string.potency),
-                            value = prescription.potency
-                        )
-                        DetailColumn(
-                            label = stringResource(R.string.dosage),
-                            value = prescription.dosage
-                        )
-                    }
-
-                    Spacer(Modifier.height(8.dp))
-
-                    Column(
-                        modifier = Modifier
-                    ) {
-                        DetailColumn(
-                            label = stringResource(R.string.duration),
-                            value = "${prescription.durationDays} ${stringResource(R.string.days)}"
-                        )
-                        DetailColumn(
-                            label = stringResource(R.string.frequency),
-                            value = prescription.frequency
-                        )
-                    }
+                    DetailColumn(
+                        label = stringResource(R.string.dosage),
+                        value = prescription.dosage
+                    )
+                    DetailColumn(
+                        label = stringResource(R.string.frequency),
+                        value = prescription.frequency
+                    )
                 }
+
+
+
 
 
                 Spacer(Modifier.height(8.dp))

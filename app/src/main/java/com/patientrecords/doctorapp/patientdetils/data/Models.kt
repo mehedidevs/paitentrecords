@@ -1,6 +1,6 @@
 package com.patientrecords.doctorapp.patientdetils.data
 
-import com.patientrecords.doctorapp.ui.screens.addpaitents.components.Patient
+import com.patientrecords.doctorapp.addpaitents.components.Patient
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import java.time.LocalDate
@@ -62,10 +62,6 @@ data class Medicine(
     val id: String = UUID.randomUUID().toString(),
     val name: String,
     val category: String? = null,
-    @SerialName("default_potency")
-    val defaultPotency: String? = null,
-    @SerialName("available_potencies")
-    val availablePotencies: List<String> = emptyList(),
     @SerialName("price_per_unit")
     val pricePerUnit: Double = 0.0,
     val description: String? = null,
@@ -163,7 +159,8 @@ data class NewVisitUiState(
 data class PrescriptionFormItem(
     val id: String = UUID.randomUUID().toString(),
     val medicineId: String? = null,
-    val medicineName: String = "",
+    val medicineName: String? = null,
+    val typedName: String = "",
     val potency: String = "",
     val dosage: String = "",
     val frequency: String = "",

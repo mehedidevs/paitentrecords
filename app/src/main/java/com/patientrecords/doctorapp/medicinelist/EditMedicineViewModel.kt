@@ -9,7 +9,7 @@ import com.patientrecords.doctorapp.domain.medicine.MedicineRepository
 import kotlinx.coroutines.launch
 
 
-import com.patientrecords.doctorapp.ui.screens.addmedicine.AddMedicineState
+import com.patientrecords.doctorapp.addmedicine.AddMedicineState
 
 sealed interface EditMedicineUiState {
     object Loading : EditMedicineUiState

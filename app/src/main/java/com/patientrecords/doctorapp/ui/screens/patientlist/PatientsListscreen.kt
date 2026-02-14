@@ -1,54 +1,45 @@
-package com.patientrecords.doctorapp.ui.screens
+package com.patientrecords.doctorapp.ui.screens.patientlist
 
 
 import android.util.Log
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.MedicalInformation
-import androidx.compose.material.icons.filled.PersonAdd
-import androidx.compose.material.icons.filled.Refresh
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.patientrecords.doctorapp.R
-import com.patientrecords.doctorapp.ui.components.HomeTopBar
 import com.patientrecords.doctorapp.ui.components.PatientAvatar
+import com.patientrecords.doctorapp.ui.screens.HomeScreen
 import com.patientrecords.doctorapp.addpaitents.components.Patient
 import com.patientrecords.doctorapp.ui.theme.HealthcarePatientTheme
 import com.patientrecords.doctorapp.addpaitents.components.GetPatientResult
-import com.patientrecords.doctorapp.ui.screens.patientlist.PatientViewModel
-import com.patientrecords.doctorapp.ui.theme.PrimaryGreenDark
-import com.patientrecords.doctorapp.ui.theme.TextPrimaryDark
 import com.patientrecords.doctorapp.utils.toFormatedDate
 import org.koin.androidx.compose.koinViewModel
+import com.patientrecords.doctorapp.ui.components.HomeTopBar
+import com.patientrecords.doctorapp.R
 
 @Composable
-fun HomeScreen(
+fun PatientListScreen(
     viewModel: PatientViewModel = koinViewModel(),
-    onAddPatientClick: () -> Unit = {},
-    onAddMedicineClick: () -> Unit = {},
     onPatientClick: (Patient) -> Unit = {},
-    onViewAllClick: () -> Unit = {},
     onSearchClick: () -> Unit = {}
 ) {
     val state by viewModel.uiState.collectAsState()
 
     Scaffold(
-        topBar = { HomeTopBar() }, containerColor = MaterialTheme.colorScheme.background
+        topBar = { HomeTopBar() },
+        containerColor = MaterialTheme.colorScheme.background
     ) { padding ->
 
         when (state) {
@@ -71,30 +62,10 @@ fun HomeScreen(
                         .padding(padding),
                     contentAlignment = Alignment.Center
                 ) {
-                    Column(
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                        verticalArrangement = Arrangement.Center
-                    ) {
-                        Text(
-                            text = (state as GetPatientResult.Error).message,
-                            color = MaterialTheme.colorScheme.error,
-                            textAlign = TextAlign.Center,
-                            modifier = Modifier.padding(bottom = 16.dp)
-                        )
-
-                        Button(
-                            onClick = {
-                                viewModel.refreshPatients()
-                            }
-                        ) {
-                            Icon(
-                                imageVector = Icons.Default.Refresh,
-                                contentDescription = "Retry"
-                            )
-                            Spacer(Modifier.width(8.dp))
-                            Text(text = "আবার চেষ্টা করুন")
-                        }
-                    }
+                    Text(
+                        text = (state as GetPatientResult.Error).message,
+                        color = MaterialTheme.colorScheme.error
+                    )
                 }
             }
 
@@ -114,22 +85,10 @@ fun HomeScreen(
                         )
                     }
 
-                    item {
-                        AddPatientButton(onClick = onAddPatientClick)
-                    }
-
-
-                    item {
-                        SecondaryTonalButton(onClick = onAddMedicineClick)
-                    }
-
-                    item {
-                        RecentConsultationsHeader(onViewAllClick)
-                    }
-
                     items(patients) { patient ->
                         PatientListItem(
-                            patient = patient, onClick = onPatientClick
+                            patient = patient,
+                            onClick = onPatientClick
                         )
                     }
                 }
@@ -200,74 +159,22 @@ private fun AddPatientButton(onClick: () -> Unit) {
                 .height(56.dp),
             shape = RoundedCornerShape(12.dp),
             colors = ButtonDefaults.buttonColors(
-                containerColor = MaterialTheme.colorScheme.primary, contentColor = Color(0xFF052E11)
+                containerColor = MaterialTheme.colorScheme.primary,
+                contentColor = Color(0xFF052E11)
             ),
             elevation = ButtonDefaults.buttonElevation(
-                defaultElevation = 4.dp, pressedElevation = 2.dp
+                defaultElevation = 4.dp,
+                pressedElevation = 2.dp
             )
         ) {
             Icon(
-                imageVector = Icons.Default.PersonAdd,
+                imageVector = Icons.Default.Add,
                 contentDescription = null,
-                tint = TextPrimaryDark,
                 modifier = Modifier.size(24.dp)
             )
             Spacer(modifier = Modifier.width(8.dp))
             Text(
-                text = stringResource(R.string.add_patient),
-                color = TextPrimaryDark,
-                style = MaterialTheme.typography.titleLarge,
-                fontWeight = FontWeight.Bold
-            )
-        }
-    }
-}
-
-@Composable
-fun SecondaryTonalButton(
-    onClick: () -> Unit,
-    modifier: Modifier = Modifier,
-    enabled: Boolean = true,
-    text: String = stringResource(R.string.add_medicine),
-    icon: ImageVector? = Icons.Default.MedicalInformation
-) {
-    Box(
-        modifier = modifier
-            .fillMaxWidth()
-            .padding(horizontal = 24.dp)
-            .padding(vertical = 8.dp)
-    ) {
-        OutlinedButton(
-            onClick = onClick,
-            enabled = enabled,
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(56.dp),
-            shape = RoundedCornerShape(12.dp),
-            border = BorderStroke(
-                1.dp,
-                PrimaryGreenDark
-            ),
-            colors = ButtonDefaults.outlinedButtonColors(
-                containerColor = PrimaryGreenDark.copy(alpha = 0.1f),
-                contentColor = MaterialTheme.colorScheme.onSecondaryContainer
-            ),
-            elevation = ButtonDefaults.buttonElevation(
-                defaultElevation = 0.dp,
-                pressedElevation = 0.dp
-            )
-        ) {
-            if (icon != null) {
-                Icon(
-                    imageVector = icon,
-                    contentDescription = null,
-                    modifier = Modifier.size(24.dp)
-                )
-                Spacer(modifier = Modifier.width(8.dp))
-            }
-
-            Text(
-                text = text,
+                text = "Add New Patient",
                 style = MaterialTheme.typography.titleLarge,
                 fontWeight = FontWeight.Bold
             )
@@ -286,14 +193,14 @@ private fun RecentConsultationsHeader(onViewAllClick: () -> Unit) {
         verticalAlignment = Alignment.CenterVertically
     ) {
         Text(
-            text = stringResource(R.string.recent_patients),
+            text = "Recent Patients",
             style = MaterialTheme.typography.titleLarge,
             fontWeight = FontWeight.Bold,
             color = MaterialTheme.colorScheme.onBackground
         )
         TextButton(onClick = onViewAllClick) {
             Text(
-                text = stringResource(R.string.view_all),
+                text = "View All",
                 style = MaterialTheme.typography.titleMedium,
                 color = MaterialTheme.colorScheme.primary
             )
@@ -302,8 +209,9 @@ private fun RecentConsultationsHeader(onViewAllClick: () -> Unit) {
 }
 
 @Composable
-fun PatientListItem(
-    patient: Patient, onClick: (Patient) -> Unit
+private fun PatientListItem(
+    patient: Patient,
+    onClick: (Patient) -> Unit
 ) {
     Card(
         modifier = Modifier
@@ -315,9 +223,12 @@ fun PatientListItem(
                 onClick(patient)
 
                 Log.d("TAG", "PatientListItem: patient${patient.id} ")
-            }), shape = RoundedCornerShape(12.dp), colors = CardDefaults.cardColors(
+            }),
+        shape = RoundedCornerShape(12.dp),
+        colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.surface
-        ), elevation = CardDefaults.cardElevation(
+        ),
+        elevation = CardDefaults.cardElevation(
             defaultElevation = 1.dp
         )
     ) {
@@ -352,8 +263,11 @@ fun PatientListItem(
             }
 
             Surface(
-                color = if (patient.createdAt == "Today") MaterialTheme.colorScheme.surfaceVariant
-                else Color.Transparent, shape = RoundedCornerShape(6.dp)
+                color = if (patient.createdAt == "Today")
+                    MaterialTheme.colorScheme.surfaceVariant
+                else
+                    Color.Transparent,
+                shape = RoundedCornerShape(6.dp)
             ) {
                 Text(
                     text = patient.createdAt.toFormatedDate(),

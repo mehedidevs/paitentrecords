@@ -8,14 +8,14 @@ import com.patientrecords.doctorapp.patientdetils.ui.screens.BillSummaryViewMode
 import com.patientrecords.doctorapp.patientdetils.ui.screens.DoctorNotesViewModel
 import com.patientrecords.doctorapp.patientdetils.ui.screens.NewVisitViewModel
 import com.patientrecords.doctorapp.patientdetils.ui.screens.PatientProfileViewModel
-import com.patientrecords.doctorapp.ui.screens.addpaitents.components.PatientRepository
-import com.patientrecords.doctorapp.ui.screens.addpaitents.components.PatientRepositoryImpl
-import com.patientrecords.doctorapp.ui.screens.addpaitents.components.AddPatientUseCase
-import com.patientrecords.doctorapp.ui.screens.addpaitents.validation.PatientFormValidator
-import com.patientrecords.doctorapp.ui.screens.addpaitents.AddPatientViewModel
-import com.patientrecords.doctorapp.ui.screens.addpaitents.components.GetPatientUseCase
+import com.patientrecords.doctorapp.addpaitents.components.PatientRepository
+import com.patientrecords.doctorapp.addpaitents.components.PatientRepositoryImpl
+import com.patientrecords.doctorapp.addpaitents.components.AddPatientUseCase
+import com.patientrecords.doctorapp.addpaitents.validation.PatientFormValidator
+import com.patientrecords.doctorapp.addpaitents.AddPatientViewModel
+import com.patientrecords.doctorapp.addpaitents.components.GetPatientUseCase
 import com.patientrecords.doctorapp.ui.screens.patientlist.PatientViewModel
-import com.patientrecords.doctorapp.ui.screens.patientsearch.SearchPatientViewModel
+import com.patientrecords.doctorapp.patientsearch.SearchPatientViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 

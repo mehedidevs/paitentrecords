@@ -1,4 +1,4 @@
-package com.patientrecords.doctorapp.ui.screens.addmedicine
+package com.patientrecords.doctorapp.addmedicine
 
 
 import androidx.compose.foundation.background
@@ -17,13 +17,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.patientrecords.doctorapp.addmedicine.AddMedicineViewModel
+import com.patientrecords.doctorapp.R
 import com.patientrecords.doctorapp.patientdetils.data.Medicine
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -51,7 +52,7 @@ fun AddMedicineScreen(
             TopAppBar(
                 title = {
                     Text(
-                        text = "Add New Medicine",
+                        text = stringResource(R.string.add_new_medicine),
                         fontWeight = FontWeight.Bold,
                         fontSize = 20.sp
                     )
@@ -63,15 +64,8 @@ fun AddMedicineScreen(
                 }
             )
         },
-        bottomBar = {
-            BottomNavigationBar(
-                selectedItem = BottomNavItem.ADD_MEDICINE,
-                onHomeClick = onNavigateToHome,
-                onPatientsClick = onNavigateToPatients,
-                onSettingsClick = onNavigateToSettings
-            )
-        }
-    ) { padding ->
+
+        ) { padding ->
 
         Box(
             modifier = Modifier
@@ -91,27 +85,27 @@ fun AddMedicineScreen(
                     onValueChange = { state.medicineName = it }
                 )
 
-                PotencySection(
-                    selectedPotency = state.selectedPotency,
-                    onPotencySelected = { state.selectedPotency = it },
-                    isCustomMode = state.isCustomPotency,
-                    onCustomModeToggle = {
-                        state.isCustomPotency = !state.isCustomPotency
-                    }
-                )
+                /*      PotencySection(
+                          selectedPotency = state.selectedPotency,
+                          onPotencySelected = { state.selectedPotency = it },
+                          isCustomMode = state.isCustomPotency,
+                          onCustomModeToggle = {
+                              state.isCustomPotency = !state.isCustomPotency
+                          }
+                      )*/
 
-                Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-                    DosageFormDropdown(
-                        selectedForm = state.dosageForm,
-                        onFormSelected = { state.dosageForm = it },
-                        modifier = Modifier.weight(1f)
-                    )
-                    DurationUnitDropdown(
-                        selectedUnit = state.durationUnit,
-                        onUnitSelected = { state.durationUnit = it },
-                        modifier = Modifier.weight(1f)
-                    )
-                }
+                /*  Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+                      DosageFormDropdown(
+                          selectedForm = state.dosageForm,
+                          onFormSelected = { state.dosageForm = it },
+                          modifier = Modifier.weight(1f)
+                      )
+                      DurationUnitDropdown(
+                          selectedUnit = state.durationUnit,
+                          onUnitSelected = { state.durationUnit = it },
+                          modifier = Modifier.weight(1f)
+                      )
+                  }*/
 
                 DefaultPriceField(
                     value = state.defaultPrice,
@@ -165,7 +159,6 @@ class AddMedicineState {
     fun toMedicineData(): Medicine {
         return Medicine(
             name = medicineName.trim(),
-            defaultPotency = selectedPotency,
             pricePerUnit = defaultPrice.toDoubleOrNull() ?: 0.0,
         )
     }
@@ -184,15 +177,6 @@ data class MedicineData(
 
 enum class BottomNavItem {
     HOME, ADD_MEDICINE, PATIENTS, SETTINGS
-}
-
-/* ---------------- UI STATE ---------------- */
-
-sealed interface AddMedicineUiState {
-    object Idle : AddMedicineUiState
-    object Loading : AddMedicineUiState
-    object Success : AddMedicineUiState
-    data class Error(val message: String) : AddMedicineUiState
 }
 
 /* ---------------- COMPONENTS ---------------- */

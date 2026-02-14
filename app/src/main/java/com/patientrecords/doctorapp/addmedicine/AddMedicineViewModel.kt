@@ -4,7 +4,6 @@ package com.patientrecords.doctorapp.addmedicine
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.patientrecords.doctorapp.patientdetils.data.Medicine
-import com.patientrecords.doctorapp.ui.screens.addmedicine.MedicineData
 import kotlinx.coroutines.launch
 
 class AddMedicineViewModel(
