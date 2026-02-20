@@ -1,21 +1,19 @@
 package com.patientrecords.doctorapp.di
 
-import com.patientrecords.doctorapp.addvisit.VisitDetailsViewModel
-import com.patientrecords.doctorapp.patientdetils.domain.HealthcareRepository
-import com.patientrecords.doctorapp.patientdetils.domain.SupabaseHealthcareRepository
-import com.patientrecords.doctorapp.patientdetils.ui.screens.AddPrescriptionViewModel
-import com.patientrecords.doctorapp.patientdetils.ui.screens.BillSummaryViewModel
-import com.patientrecords.doctorapp.patientdetils.ui.screens.DoctorNotesViewModel
-import com.patientrecords.doctorapp.patientdetils.ui.screens.NewVisitViewModel
-import com.patientrecords.doctorapp.patientdetils.ui.screens.PatientProfileViewModel
-import com.patientrecords.doctorapp.addpaitents.components.PatientRepository
-import com.patientrecords.doctorapp.addpaitents.components.PatientRepositoryImpl
-import com.patientrecords.doctorapp.addpaitents.components.AddPatientUseCase
-import com.patientrecords.doctorapp.addpaitents.validation.PatientFormValidator
-import com.patientrecords.doctorapp.addpaitents.AddPatientViewModel
-import com.patientrecords.doctorapp.addpaitents.components.GetPatientUseCase
-import com.patientrecords.doctorapp.ui.screens.patientlist.PatientViewModel
-import com.patientrecords.doctorapp.patientsearch.SearchPatientViewModel
+import com.patientrecords.doctorapp.data.reposimpl.HealthcareRepositoryImpl
+import com.patientrecords.doctorapp.data.reposimpl.PatientRepositoryImpl
+import com.patientrecords.doctorapp.domain.patients.PatientRepository
+import com.patientrecords.doctorapp.domain.repos.HealthcareRepository
+import com.patientrecords.doctorapp.ui.addvisit.viewmodels.VisitDetailsViewModel
+import com.patientrecords.doctorapp.domain.usecases.AddPatientUseCase
+import com.patientrecords.doctorapp.ui.addpaitents.validation.PatientFormValidator
+import com.patientrecords.doctorapp.ui.addpaitents.AddPatientViewModel
+import com.patientrecords.doctorapp.domain.usecases.GetPatientUseCase
+import com.patientrecords.doctorapp.ui.addvisit.viewmodels.NewVisitViewModel
+import com.patientrecords.doctorapp.ui.patientdetils.ui.PatientProfileViewModel
+import com.patientrecords.doctorapp.ui.patientlist.PatientViewModel
+import com.patientrecords.doctorapp.ui.patientsearch.SearchPatientViewModel
+import com.patientrecords.doctorapp.ui.prescription.AddPrescriptionViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
@@ -29,7 +27,7 @@ val patientModule = module {
 
     // ============== Repositories ==============
     single<PatientRepository> { PatientRepositoryImpl() }
-    single<HealthcareRepository> { SupabaseHealthcareRepository() }
+    single<HealthcareRepository> { HealthcareRepositoryImpl() }
     // ============== Use Cases ==============
     single { AddPatientUseCase(get(), get()) }
     single { GetPatientUseCase(get()) }
@@ -67,15 +65,7 @@ val viewModelModule = module {
         )
     }
 
-    // Doctor Notes ViewModel
-    viewModel { (patientId: String, visitId: String?) ->
-        DoctorNotesViewModel(patientId, visitId, get())
-    }
 
-    // Bill Summary ViewModel
-    viewModel { (patientId: String, visitId: String) ->
-        BillSummaryViewModel(patientId, visitId, get())
-    }
 }
 
 /**

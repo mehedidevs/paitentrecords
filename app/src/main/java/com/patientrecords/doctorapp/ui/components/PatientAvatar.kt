@@ -18,7 +18,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
-import com.patientrecords.doctorapp.addpaitents.components.Patient
+import com.patientrecords.doctorapp.domain.models.Patient
 import com.patientrecords.doctorapp.ui.theme.Primary
 import com.patientrecords.doctorapp.ui.theme.TextPrimary
 

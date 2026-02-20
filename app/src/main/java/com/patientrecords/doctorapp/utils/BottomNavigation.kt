@@ -8,7 +8,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hasRoute
 import androidx.navigation.NavDestination.Companion.hierarchy
-import com.patientrecords.Screen
+import com.patientrecords.doctorapp.navs.Screen
 import kotlin.reflect.KClass
 
 data class BottomNavItem(
